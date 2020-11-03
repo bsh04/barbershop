@@ -3,6 +3,8 @@ import 'package:firebaseauthproject/repositories/user_repository.dart';
 import 'package:firebaseauthproject/screens/login/login_form.dart';
 import 'package:firebaseauthproject/widgets/app_bar.dart';
 import 'package:firebaseauthproject/widgets/curved_widget.dart';
+import 'package:firebaseauthproject/widgets/custom_button.dart';
+import 'package:firebaseauthproject/widgets/custom_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,43 +18,20 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar('Вход в аккаунт', true),
       body: BlocProvider<LoginBloc>(
         create: (context) => LoginBloc(userRepository: _userRepository),
         child: Container(
           height: double.infinity,
-          child: SingleChildScrollView(
-            child: Stack(
-              children: <Widget>[
-                CurvedWidget(
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 100, left: 50),
-                    width: double.infinity,
-                    height: 300,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [Colors.white, Colors.white.withOpacity(0.4)],
-                      ),
-                    ),
-                    child: Text(
-                      'Login',
-                      style: TextStyle(
-                        fontSize: 40,
-                        color: Color(0xff6a515e),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 230),
-                  child: LoginForm(
-                    userRepository: _userRepository,
-                  ),
-                )
-              ],
-            ),
-          ),
+          child: Column(
+            children: <Widget>[
+              Text('Войдите в свой аккаунт'),
+              CustomInput(),
+              CustomInput(),
+              CustomButton(0xff01579b),
+              CustomButton(0xff014211)
+            ],
+          ) 
         ),
       ),
     );
