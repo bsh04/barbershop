@@ -5,7 +5,6 @@ import 'package:firebaseauthproject/blocs/login_bloc/login_event.dart';
 import 'package:firebaseauthproject/blocs/login_bloc/login_state.dart';
 import 'package:firebaseauthproject/repositories/user_repository.dart';
 import 'package:firebaseauthproject/screens/register/register_screen.dart';
-import 'package:firebaseauthproject/widgets/gradient_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -98,7 +97,7 @@ class _LoginFormState extends State<LoginForm> {
                     controller: _emailController,
                     decoration: InputDecoration(
                       icon: Icon(Icons.email),
-                      labelText: "Email",
+                      labelText: "Введите свой E-mail",
                     ),
                     keyboardType: TextInputType.emailAddress,
                     //autovalidate: true,
@@ -111,7 +110,7 @@ class _LoginFormState extends State<LoginForm> {
                     controller: _passwordController,
                     decoration: InputDecoration(
                       icon: Icon(Icons.lock),
-                      labelText: "Password",
+                      labelText: "Введите свой пароль",
                     ),
                     obscureText: true,
                     // autovalidateMode: Type,
@@ -121,33 +120,47 @@ class _LoginFormState extends State<LoginForm> {
                     },
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 15,
                   ),
-                  GradientButton(
-                    width: 150,
-                    height: 45,
+                  FloatingActionButton.extended(
+                    backgroundColor: const Color(0xff00c853),
+                    foregroundColor: Colors.white,
                     onPressed: () {
-                      if (isButtonEnabled(state)) {
-                        _onFormSubmitted();
-                      }
+                      _onFormSubmitted();
                     },
-                    text: Text(
-                      'LogIn',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
+                    label: Text('Войти в аккаунт'),
                     icon: Icon(
-                      Icons.check,
+                      Icons.login,
                       color: Colors.white,
                     ),
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 15,
                   ),
-                  GradientButton(
-                    width: 150,
-                    height: 45,
+                  FloatingActionButton.extended(
+                    backgroundColor: const Color(0xff64b5f6),
+                    foregroundColor: Colors.white,
+                    onPressed: () {
+                      // Respond to button press
+                    },
+                    label: Text('Войти по номеру телефона'),
+                    icon: Icon(
+                      Icons.phone,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Center(
+                    child: Text('Нет аккаунта ?', style: TextStyle(fontWeight: FontWeight.bold),),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  FloatingActionButton.extended(
+                    backgroundColor: const Color(0xff64b5f6),
+                    foregroundColor: Colors.white,
                     onPressed: () {
                       Navigator.push(context, MaterialPageRoute(builder: (_) {
                         return RegisterScreen(
@@ -155,14 +168,9 @@ class _LoginFormState extends State<LoginForm> {
                         );
                       }));
                     },
-                    text: Text(
-                      'Register',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
+                    label: Text('Зарегистрироваться'),
                     icon: Icon(
-                      Icons.arrow_forward,
+                      Icons.person_add,
                       color: Colors.white,
                     ),
                   ),
