@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
         cursorColor: Color(0xff6a515e),
       ),
       initialRoute: '/',
+      debugShowCheckedModeBanner: false,
       routes: {
         '/': (BuildContext context) => LoginScreen(),
         '/register': (BuildContext context) => RegisterScreen(),
