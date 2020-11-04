@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:firebaseauthproject/blocs/authentication_bloc/authentication_bloc.dart';
 import 'package:firebaseauthproject/blocs/authentication_bloc/authentication_event.dart';
 import 'package:firebaseauthproject/blocs/login_bloc/login_bloc.dart';
@@ -5,7 +7,9 @@ import 'package:firebaseauthproject/blocs/login_bloc/login_event.dart';
 import 'package:firebaseauthproject/blocs/login_bloc/login_state.dart';
 import 'package:firebaseauthproject/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class LoginForm extends StatefulWidget {
   final UserRepository _userRepository;
@@ -155,7 +159,7 @@ class _LoginFormState extends State<LoginForm> {
                       width: 250,
                       child: FloatingActionButton.extended(
                         heroTag: 'phone',
-                        backgroundColor: const Color(0xff64b5f6),
+                        backgroundColor: Colors.blue,
                         foregroundColor: Colors.white,
                         onPressed: () {
                           setState(() {
@@ -185,11 +189,21 @@ class _LoginFormState extends State<LoginForm> {
                     SizedBox(
                       height: 15,
                     ),
+                    Row(
+                      children: [
+                        Icon(Icons.ac_unit_rounded, size: 30),
+                        Icon(Icons.drag_indicator, size: 30)
+                      ],
+                      mainAxisAlignment: MainAxisAlignment.center,
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
                     SizedBox(
                       width: 250,
                       child: FloatingActionButton.extended(
                         heroTag: 'register',
-                        backgroundColor: const Color(0xff64b5f6),
+                        backgroundColor: Colors.blue,
                         foregroundColor: Colors.white,
                         onPressed: () {
                           Navigator.of(context).pushNamed('/register');
@@ -200,7 +214,7 @@ class _LoginFormState extends State<LoginForm> {
                           color: Colors.white,
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
