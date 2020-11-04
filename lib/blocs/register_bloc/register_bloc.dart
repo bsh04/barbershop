@@ -20,7 +20,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       yield* _mapRegisterPasswordChangeToState(event.password);
     } else if (event is RegisterSubmitted) {
       yield* _mapRegisterSubmittedToState(
-          email: event.email, password: event.password);
+          name: event.name, email: event.email, password: event.password);
     }
   }
 
@@ -33,10 +33,10 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   }
 
   Stream<RegisterState> _mapRegisterSubmittedToState(
-      {String email, String password}) async* {
+      {String name, String email, String password}) async* {
     yield RegisterState.loading();
     try {
-      await _userRepository.signUp(email, password);
+      await _userRepository.signUp(name, email, password);
       yield RegisterState.success();
     } catch (error) {
       print(error);

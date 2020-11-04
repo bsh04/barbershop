@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserRepository {
   final FirebaseAuth _firebaseAuth;
@@ -11,11 +12,13 @@ class UserRepository {
         email: email, password: password);
   }
 
-  Future<void> signUp(String email, String password) async {
-    return await _firebaseAuth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+  Future<void> signUp(String name, String email, String password) async {
+    UserCredential credential = await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email, password: password);
+
+    FirebaseFirestore.instance.collection('users').doc(credential.user.uid).set({ 'name': name });
+
+    return credential;
   }
 
   Future<void> signOut() async {

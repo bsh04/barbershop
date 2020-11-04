@@ -199,6 +199,6 @@ class _LoginFormState extends State<RegisterForm> {
 
   void _onFormSubmitted() {
     _registerBloc.add(RegisterSubmitted(
-        email: _emailController.text, password: _passwordController.text));
+        name: _nameController.text, email: _emailController.text, password: _passwordController.text));
   }
 }
