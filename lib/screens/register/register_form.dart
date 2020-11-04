@@ -13,7 +13,7 @@ class RegisterForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<RegisterForm> {
-   final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _passwordConfirmController = TextEditingController();

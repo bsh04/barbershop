@@ -20,7 +20,7 @@ void main() async {
   await Firebase.initializeApp();
   Bloc.observer = SimpleBlocObserver();
   final UserRepository userRepository = UserRepository();
-  runApp(MyApp());
+  runApp(MyApp(userRepository: userRepository));
 }
 
 class MyApp extends StatelessWidget {
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         '/': (BuildContext context) => LoginScreen(),
-        '/register': (BuildContext context) => RegisterScreen(),
+        '/register': (BuildContext context) => RegisterScreen(userRepository: _userRepository),
         '/home': (BuildContext context) => LoginMain(),
         '/gallery': (BuildContext context) => GalleryScreen(),
         '/shop': (BuildContext context) => ShopScreen(),
