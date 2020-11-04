@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebaseauthproject/blocs/authentication_bloc/authentication_state.dart';
 import 'package:firebaseauthproject/blocs/simple_bloc_observer.dart';
 import 'package:firebaseauthproject/repositories/user_repository.dart';
@@ -9,7 +10,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'blocs/authentication_bloc/authentication_bloc.dart';
 import 'blocs/authentication_bloc/authentication_event.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   Bloc.observer = SimpleBlocObserver();
   final UserRepository userRepository = UserRepository();
   runApp(
