@@ -8,7 +8,7 @@ import 'package:firebaseauthproject/screens/login/login_screen.dart';
 import 'package:firebaseauthproject/screens/register/register_screen.dart';
 import 'package:firebaseauthproject/screens/shop/shop_screen.dart';
 import 'package:firebaseauthproject/widgets/app_bar.dart';
-import 'package:firebaseauthproject/widgets/bottom_tab_navigator.dart';
+import 'package:firebaseauthproject/widgets/main_layout.dart';
 import 'package:firebaseauthproject/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +24,9 @@ class LoginMain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: CustomBottomTabNavigator(),
+      body: SafeArea(
+        child: CustomBottomTabNavigator(),
+      ),
     );
   }
 }

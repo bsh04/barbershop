@@ -1,3 +1,4 @@
+import 'package:firebaseauthproject/screens/call/call_screen.dart';
 import 'package:firebaseauthproject/screens/galery/gallery_screen.dart';
 import 'package:firebaseauthproject/screens/home/home_screen.dart';
 import 'package:firebaseauthproject/screens/shop/shop_screen.dart';
@@ -21,7 +22,7 @@ class _MyTabbedPageState extends State<CustomBottomTabNavigator> {
     HomeScreen(),
     GalleryScreen(),
     ShopScreen(),
-    ShopScreen()
+    CallScreen()
   ];
 
   @override
@@ -62,7 +63,7 @@ class _MyTabbedPageState extends State<CustomBottomTabNavigator> {
               title: Text(destination.title));
         }).toList(),
       ),
-      body: Container(
+      body: SafeArea(
         child: PageView(
           children: tabPages,
           onPageChanged: onPageChanged,

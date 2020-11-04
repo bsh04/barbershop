@@ -11,6 +11,6 @@ class Destination {
 const List<Destination> allDestinations = <Destination>[
   Destination('Главная', Icons.home, Colors.indigo),
   Destination('Галерея', Icons.photo_library_outlined, Colors.blue),
-  Destination('Магазн', Icons.shop_two, Colors.lightBlue),
+  Destination('Магазин', Icons.shop_two, Colors.lightBlue),
   Destination('Вызов', Icons.phone, Colors.cyan)
 ];

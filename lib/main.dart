@@ -11,11 +11,16 @@ import 'package:firebaseauthproject/screens/register/register_screen.dart';
 import 'package:firebaseauthproject/screens/shop/shop_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/services.dart';
 
 import 'blocs/authentication_bloc/authentication_bloc.dart';
 import 'blocs/authentication_bloc/authentication_event.dart';
 
 void main() async {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    systemNavigationBarColor: Colors.white,
+    statusBarColor: Colors.indigo,
+  ));
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   Bloc.observer = SimpleBlocObserver();
