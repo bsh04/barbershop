@@ -15,14 +15,16 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar('Регистрация', false),
-      body: BlocProvider<RegisterBloc>(
-        create: (context) => RegisterBloc(userRepository: _userRepository),
-        child: Container(
-          height: double.infinity,
-          child: RegisterForm()
-        ),
-      ),
-    );
+        resizeToAvoidBottomPadding: true,
+        resizeToAvoidBottomInset: true,
+        appBar: CustomAppBar('Вход в аккаунт', false),
+        body: BlocProvider<RegisterBloc>(
+            create: (context) => RegisterBloc(userRepository: _userRepository),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SafeArea(child: RegisterForm()),
+              ],
+            )));
   }
 }

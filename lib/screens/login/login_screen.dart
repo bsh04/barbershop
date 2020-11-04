@@ -2,6 +2,7 @@ import 'package:firebaseauthproject/blocs/login_bloc/login_bloc.dart';
 import 'package:firebaseauthproject/repositories/user_repository.dart';
 import 'package:firebaseauthproject/screens/login/login_form.dart';
 import 'package:firebaseauthproject/widgets/app_bar.dart';
+import 'package:firebaseauthproject/widgets/bottom_tab_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

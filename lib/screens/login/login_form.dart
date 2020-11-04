@@ -19,11 +19,11 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _loginController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   bool get isPopulated =>
-      _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty;
+      _loginController.text.isNotEmpty && _passwordController.text.isNotEmpty;
 
   bool isButtonEnabled(LoginState state) {
     return state.isFormValid && isPopulated && !state.isSubmitting;
@@ -37,7 +37,7 @@ class _LoginFormState extends State<LoginForm> {
   void initState() {
     super.initState();
     _loginBloc = BlocProvider.of<LoginBloc>(context);
-    _emailController.addListener(_onEmailChange);
+    _loginController.addListener(_onEmailChange);
     _passwordController.addListener(_onPasswordChange);
   }
 
@@ -89,114 +89,120 @@ class _LoginFormState extends State<LoginForm> {
       },
       child: BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {
-          return Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Form(
-              child: Column(
-                children: <Widget>[
-                  TextFormField(
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      icon: loginType == 'email' ? Icon(Icons.email) : Icon(Icons.phone),
-                      labelText: loginType == 'email'
-                          ? "Введите свой E-mail"
-                          : "Введите свой номер телефона",
-                    ),
-                    keyboardType: loginType == 'email'
-                        ? TextInputType.emailAddress
-                        : TextInputType.phone,
-                    //autovalidate: true,
-                    autocorrect: false,
-                    validator: (_) {
-                      return !state.isEmailValid ? 'Invalid Email' : null;
-                    },
-                  ),
-                  TextFormField(
-                    controller: _passwordController,
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.lock),
-                      labelText: "Введите свой пароль",
-                    ),
-                    obscureText: true,
-                    // autovalidateMode: Type,
-                    autocorrect: false,
-                    validator: (_) {
-                      return !state.isPasswordValid ? 'Invalid Password' : null;
-                    },
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  SizedBox(
-                    width: 250,
-                    child: FloatingActionButton.extended(
-                      heroTag: 'logIn',
-                      backgroundColor: const Color(0xff00c853),
-                      foregroundColor: Colors.white,
-                      onPressed: () {
-                        Navigator.of(context).pushNamed('/home');
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Form(
+                child: Column(
+                  children: <Widget>[
+                    TextFormField(
+                      controller: _loginController,
+                      decoration: InputDecoration(
+                        icon: loginType == 'email'
+                            ? Icon(Icons.email)
+                            : Icon(Icons.phone),
+                        labelText: loginType == 'email'
+                            ? "Введите свой E-mail"
+                            : "Введите свой номер телефона",
+                      ),
+                      keyboardType: loginType == 'email'
+                          ? TextInputType.emailAddress
+                          : TextInputType.phone,
+                      //autovalidate: true,
+                      autocorrect: false,
+                      validator: (_) {
+                        return !state.isEmailValid ? 'Invalid Email' : null;
                       },
-                      label: Text('Войти в аккаунт'),
-                      icon: Icon(
-                        Icons.login,
-                        color: Colors.white,
+                    ),
+                    TextFormField(
+                      controller: _passwordController,
+                      decoration: InputDecoration(
+                        icon: Icon(Icons.lock),
+                        labelText: "Введите свой пароль",
+                      ),
+                      obscureText: true,
+                      // autovalidateMode: Type,
+                      autocorrect: false,
+                      validator: (_) {
+                        return !state.isPasswordValid
+                            ? 'Invalid Password'
+                            : null;
+                      },
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    SizedBox(
+                      width: 250,
+                      child: FloatingActionButton.extended(
+                        heroTag: 'logIn',
+                        backgroundColor: const Color(0xff00c853),
+                        foregroundColor: Colors.white,
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/home');
+                        },
+                        label: Text('Войти в аккаунт'),
+                        icon: Icon(
+                          Icons.login,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  SizedBox(
-                    width: 250,
-                    child: FloatingActionButton.extended(
-                      heroTag: 'phone',
-                      backgroundColor: const Color(0xff64b5f6),
-                      foregroundColor: Colors.white,
-                      onPressed: () {
-                        setState(() {
-                          loginType == 'phone'
-                              ? loginType = 'email'
-                              : loginType = 'phone';
-                        });
-                      },
-                      label: loginType == 'phone'
-                          ? Text('Войти по почте')
-                          : Text('Войти по номеру телефона'),
-                      icon: Icon(
-                        loginType == 'phone' ? Icons.mail : Icons.phone,
-                        color: Colors.white,
+                    SizedBox(
+                      height: 15,
+                    ),
+                    SizedBox(
+                      width: 250,
+                      child: FloatingActionButton.extended(
+                        heroTag: 'phone',
+                        backgroundColor: const Color(0xff64b5f6),
+                        foregroundColor: Colors.white,
+                        onPressed: () {
+                          setState(() {
+                            loginType == 'phone'
+                                ? loginType = 'email'
+                                : loginType = 'phone';
+                          });
+                        },
+                        label: loginType == 'phone'
+                            ? Text('Войти по почте')
+                            : Text('Войти по номеру телефона'),
+                        icon: Icon(
+                          loginType == 'phone' ? Icons.mail : Icons.phone,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Center(
-                    child: Text(
-                      'Нет аккаунта ?',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                    SizedBox(
+                      height: 15,
                     ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  SizedBox(
-                    width: 250,
-                    child: FloatingActionButton.extended(
-                      heroTag: 'register',
-                      backgroundColor: const Color(0xff64b5f6),
-                      foregroundColor: Colors.white,
-                      onPressed: () {
-                        Navigator.of(context).pushNamed('/register');
-                      },
-                      label: Text('Зарегистрироваться'),
-                      icon: Icon(
-                        Icons.person_add,
-                        color: Colors.white,
+                    Center(
+                      child: Text(
+                        'Нет аккаунта ?',
+                        style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
-                  )
-                ],
+                    SizedBox(
+                      height: 15,
+                    ),
+                    SizedBox(
+                      width: 250,
+                      child: FloatingActionButton.extended(
+                        heroTag: 'register',
+                        backgroundColor: const Color(0xff64b5f6),
+                        foregroundColor: Colors.white,
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/register');
+                        },
+                        label: Text('Зарегистрироваться'),
+                        icon: Icon(
+                          Icons.person_add,
+                          color: Colors.white,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           );
@@ -207,13 +213,13 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _loginController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
 
   void _onEmailChange() {
-    _loginBloc.add(LoginEmailChange(email: _emailController.text));
+    _loginBloc.add(LoginEmailChange(email: _loginController.text));
   }
 
   void _onPasswordChange() {
@@ -222,6 +228,6 @@ class _LoginFormState extends State<LoginForm> {
 
   void _onFormSubmitted() {
     _loginBloc.add(LoginWithCredentialsPressed(
-        email: _emailController.text, password: _passwordController.text));
+        email: _loginController.text, password: _passwordController.text));
   }
 }

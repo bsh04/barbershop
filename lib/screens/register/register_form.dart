@@ -82,88 +82,90 @@ class _LoginFormState extends State<RegisterForm> {
       },
       child: BlocBuilder<RegisterBloc, RegisterState>(
         builder: (context, state) {
-          return Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Form(
-              child: Column(
-                children: <Widget>[
-                  TextFormField(
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.person),
-                      labelText: "ФИО",
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    //autovalidate: true,
-                    autocorrect: false,
-                    validator: (_) {
-                      return !state.isEmailValid ? 'Invalid Email' : null;
-                    },
-                  ),
-                  TextFormField(
-                    controller: _passwordController,
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.email),
-                      labelText: "E-mail или телефон",
-                    ),
-                    obscureText: true,
-                    // autovalidate: true,
-                    autocorrect: false,
-                    validator: (_) {
-                      return !state.isPasswordValid ? 'Invalid Password' : null;
-                    },
-                  ),
-                  TextFormField(
-                    controller: _passwordController,
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.lock),
-                      labelText: "Пароль",
-                    ),
-                    obscureText: true,
-                    // autovalidate: true,
-                    autocorrect: false,
-                    validator: (_) {
-                      return !state.isPasswordValid ? 'Invalid Password' : null;
-                    },
-                  ),
-                  TextFormField(
-                    controller: _passwordController,
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.lock),
-                      labelText: "Повторите пароль",
-                    ),
-                    obscureText: true,
-                    // autovalidate: true,
-                    autocorrect: false,
-                    validator: (_) {
-                      return !state.isPasswordValid ? 'Invalid Password' : null;
-                    },
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  SizedBox(
-                    width: 250,
-                    child: FloatingActionButton.extended(
-                      heroTag: 'register',
-                      backgroundColor: const Color(0xff64b5f6),
-                      foregroundColor: Colors.white,
-                      onPressed: () {
-                        if (isButtonEnabled(state)) {
-                          _onFormSubmitted();
-                        }
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Form(
+                child: Column(
+                  children: <Widget>[
+                    TextFormField(
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        icon: Icon(Icons.person),
+                        labelText: "ФИО",
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                      //autovalidate: true,
+                      autocorrect: false,
+                      validator: (_) {
+                        return !state.isEmailValid ? 'Invalid Email' : null;
                       },
-                      label: Text('Зарегистрироваться'),
-                      icon: Icon(
-                        Icons.person_add,
-                        color: Colors.white,
+                    ),
+                    TextFormField(
+                      controller: _passwordController,
+                      decoration: InputDecoration(
+                        icon: Icon(Icons.email),
+                        labelText: "E-mail или телефон",
+                      ),
+                      obscureText: true,
+                      // autovalidate: true,
+                      autocorrect: false,
+                      validator: (_) {
+                        return !state.isPasswordValid ? 'Invalid Password' : null;
+                      },
+                    ),
+                    TextFormField(
+                      controller: _passwordController,
+                      decoration: InputDecoration(
+                        icon: Icon(Icons.lock),
+                        labelText: "Пароль",
+                      ),
+                      obscureText: true,
+                      // autovalidate: true,
+                      autocorrect: false,
+                      validator: (_) {
+                        return !state.isPasswordValid ? 'Invalid Password' : null;
+                      },
+                    ),
+                    TextFormField(
+                      controller: _passwordController,
+                      decoration: InputDecoration(
+                        icon: Icon(Icons.lock),
+                        labelText: "Повторите пароль",
+                      ),
+                      obscureText: true,
+                      // autovalidate: true,
+                      autocorrect: false,
+                      validator: (_) {
+                        return !state.isPasswordValid ? 'Invalid Password' : null;
+                      },
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    SizedBox(
+                      width: 250,
+                      child: FloatingActionButton.extended(
+                        heroTag: 'register',
+                        backgroundColor: const Color(0xff64b5f6),
+                        foregroundColor: Colors.white,
+                        onPressed: () {
+                          if (isButtonEnabled(state)) {
+                            _onFormSubmitted();
+                          }
+                        },
+                        label: Text('Зарегистрироваться'),
+                        icon: Icon(
+                          Icons.person_add,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                ],
+                    SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                ),
               ),
             ),
           );
