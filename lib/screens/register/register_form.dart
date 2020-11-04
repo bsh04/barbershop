@@ -90,8 +90,8 @@ class _LoginFormState extends State<RegisterForm> {
                   TextFormField(
                     controller: _emailController,
                     decoration: InputDecoration(
-                      icon: Icon(Icons.email),
-                      labelText: "Email",
+                      icon: Icon(Icons.person),
+                      labelText: "ФИО",
                     ),
                     keyboardType: TextInputType.emailAddress,
                     //autovalidate: true,
@@ -103,8 +103,34 @@ class _LoginFormState extends State<RegisterForm> {
                   TextFormField(
                     controller: _passwordController,
                     decoration: InputDecoration(
+                      icon: Icon(Icons.email),
+                      labelText: "E-mail или телефон",
+                    ),
+                    obscureText: true,
+                    // autovalidate: true,
+                    autocorrect: false,
+                    validator: (_) {
+                      return !state.isPasswordValid ? 'Invalid Password' : null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: _passwordController,
+                    decoration: InputDecoration(
                       icon: Icon(Icons.lock),
-                      labelText: "Password",
+                      labelText: "Пароль",
+                    ),
+                    obscureText: true,
+                    // autovalidate: true,
+                    autocorrect: false,
+                    validator: (_) {
+                      return !state.isPasswordValid ? 'Invalid Password' : null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: _passwordController,
+                    decoration: InputDecoration(
+                      icon: Icon(Icons.lock),
+                      labelText: "Повторите пароль",
                     ),
                     obscureText: true,
                     // autovalidate: true,
@@ -116,23 +142,22 @@ class _LoginFormState extends State<RegisterForm> {
                   SizedBox(
                     height: 30,
                   ),
-                  GradientButton(
-                    width: 150,
-                    height: 45,
-                    onPressed: () {
-                      if (isButtonEnabled(state)) {
-                        _onFormSubmitted();
-                      }
-                    },
-                    text: Text(
-                      'Register',
-                      style: TextStyle(
+                  SizedBox(
+                    width: 250,
+                    child: FloatingActionButton.extended(
+                      heroTag: 'register',
+                      backgroundColor: const Color(0xff64b5f6),
+                      foregroundColor: Colors.white,
+                      onPressed: () {
+                        if (isButtonEnabled(state)) {
+                          _onFormSubmitted();
+                        }
+                      },
+                      label: Text('Зарегистрироваться'),
+                      icon: Icon(
+                        Icons.person_add,
                         color: Colors.white,
                       ),
-                    ),
-                    icon: Icon(
-                      Icons.check,
-                      color: Colors.white,
                     ),
                   ),
                   SizedBox(
