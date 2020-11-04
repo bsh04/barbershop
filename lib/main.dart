@@ -1,11 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebaseauthproject/blocs/authentication_bloc/authentication_state.dart';
 import 'package:firebaseauthproject/blocs/simple_bloc_observer.dart';
+import 'package:firebaseauthproject/login_main.dart';
 import 'package:firebaseauthproject/repositories/user_repository.dart';
-import 'package:firebaseauthproject/screens/home/home.dart';
-import 'package:firebaseauthproject/screens/home_screen.dart';
+import 'package:firebaseauthproject/screens/call/call_screen.dart';
+import 'package:firebaseauthproject/screens/galery/gallery_screen.dart';
+import 'package:firebaseauthproject/screens/home/home_screen.dart';
 import 'package:firebaseauthproject/screens/login/login_screen.dart';
 import 'package:firebaseauthproject/screens/register/register_screen.dart';
+import 'package:firebaseauthproject/screens/shop/shop_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,7 +40,10 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (BuildContext context) => LoginScreen(),
         '/register': (BuildContext context) => RegisterScreen(),
-        '/home': (BuildContext context) => HomePage(),
+        '/home': (BuildContext context) => LoginMain(),
+        '/gallery': (BuildContext context) => GalleryScreen(),
+        '/shop': (BuildContext context) => ShopScreen(),
+        '/call': (BuildContext context) => CallScreen()
       },
     );
   }
