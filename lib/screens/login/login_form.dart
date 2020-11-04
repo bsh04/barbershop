@@ -4,7 +4,6 @@ import 'package:firebaseauthproject/blocs/login_bloc/login_bloc.dart';
 import 'package:firebaseauthproject/blocs/login_bloc/login_event.dart';
 import 'package:firebaseauthproject/blocs/login_bloc/login_state.dart';
 import 'package:firebaseauthproject/repositories/user_repository.dart';
-import 'package:firebaseauthproject/screens/register/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -29,6 +28,8 @@ class _LoginFormState extends State<LoginForm> {
   bool isButtonEnabled(LoginState state) {
     return state.isFormValid && isPopulated && !state.isSubmitting;
   }
+
+  String loginType = 'email';
 
   LoginBloc _loginBloc;
 
@@ -96,10 +97,14 @@ class _LoginFormState extends State<LoginForm> {
                   TextFormField(
                     controller: _emailController,
                     decoration: InputDecoration(
-                      icon: Icon(Icons.email),
-                      labelText: "Введите свой E-mail",
+                      icon: loginType == 'email' ? Icon(Icons.email) : Icon(Icons.phone),
+                      labelText: loginType == 'email'
+                          ? "Введите свой E-mail"
+                          : "Введите свой номер телефона",
                     ),
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: loginType == 'email'
+                        ? TextInputType.emailAddress
+                        : TextInputType.phone,
                     //autovalidate: true,
                     autocorrect: false,
                     validator: (_) {
@@ -122,58 +127,75 @@ class _LoginFormState extends State<LoginForm> {
                   SizedBox(
                     height: 15,
                   ),
-                  FloatingActionButton.extended(
-                    backgroundColor: const Color(0xff00c853),
-                    foregroundColor: Colors.white,
-                    onPressed: () {
-                      _onFormSubmitted();
-                    },
-                    label: Text('Войти в аккаунт'),
-                    icon: Icon(
-                      Icons.login,
-                      color: Colors.white,
+                  SizedBox(
+                    width: 250,
+                    child: FloatingActionButton.extended(
+                      heroTag: 'logIn',
+                      backgroundColor: const Color(0xff00c853),
+                      foregroundColor: Colors.white,
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/home');
+                      },
+                      label: Text('Войти в аккаунт'),
+                      icon: Icon(
+                        Icons.login,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                   SizedBox(
                     height: 15,
                   ),
-                  FloatingActionButton.extended(
-                    backgroundColor: const Color(0xff64b5f6),
-                    foregroundColor: Colors.white,
-                    onPressed: () {
-                      // Respond to button press
-                    },
-                    label: Text('Войти по номеру телефона'),
-                    icon: Icon(
-                      Icons.phone,
-                      color: Colors.white,
+                  SizedBox(
+                    width: 250,
+                    child: FloatingActionButton.extended(
+                      heroTag: 'phone',
+                      backgroundColor: const Color(0xff64b5f6),
+                      foregroundColor: Colors.white,
+                      onPressed: () {
+                        setState(() {
+                          loginType == 'phone'
+                              ? loginType = 'email'
+                              : loginType = 'phone';
+                        });
+                      },
+                      label: loginType == 'phone'
+                          ? Text('Войти по почте')
+                          : Text('Войти по номеру телефона'),
+                      icon: Icon(
+                        loginType == 'phone' ? Icons.mail : Icons.phone,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                   SizedBox(
                     height: 15,
                   ),
                   Center(
-                    child: Text('Нет аккаунта ?', style: TextStyle(fontWeight: FontWeight.bold),),
+                    child: Text(
+                      'Нет аккаунта ?',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
                   SizedBox(
                     height: 15,
                   ),
-                  FloatingActionButton.extended(
-                    backgroundColor: const Color(0xff64b5f6),
-                    foregroundColor: Colors.white,
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (_) {
-                        return RegisterScreen(
-                          userRepository: widget._userRepository,
-                        );
-                      }));
-                    },
-                    label: Text('Зарегистрироваться'),
-                    icon: Icon(
-                      Icons.person_add,
-                      color: Colors.white,
+                  SizedBox(
+                    width: 250,
+                    child: FloatingActionButton.extended(
+                      heroTag: 'register',
+                      backgroundColor: const Color(0xff64b5f6),
+                      foregroundColor: Colors.white,
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/register');
+                      },
+                      label: Text('Зарегистрироваться'),
+                      icon: Icon(
+                        Icons.person_add,
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
+                  )
                 ],
               ),
             ),
