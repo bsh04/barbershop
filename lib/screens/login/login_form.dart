@@ -206,7 +206,7 @@ class _LoginFormState extends State<LoginForm> {
                       ),
                     ),
                     SizedBox(
-                      height: 15,
+                      height: 25,
                     ),
                     Row(
                       children: [
@@ -216,10 +216,16 @@ class _LoginFormState extends State<LoginForm> {
                           },
                           highlightColor: Colors.white,
                           splashColor: Colors.white,
-                          child: Image.network(
-                              'https://lh3.googleusercontent.com/proxy/FSlLM23GI4qhzqBmydXGCfueGIdReuj_0UYdxVj7gXn46vYrr_jTGUWBxkr6ImwCDBNrkYySFREy_w0zThVJEFRH7PI0hyiaHeQSObOzJWwN',
-                              width: 55,
-                              height: 55),
+                          child: Container(
+                            height: 50,
+                            width: 50,
+                            decoration: new BoxDecoration(
+                              image: new DecorationImage(
+                                image: new AssetImage('assets/icons/vk.png'),
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
                         ),
                         FlatButton(
                             highlightColor: Colors.white,
@@ -227,10 +233,17 @@ class _LoginFormState extends State<LoginForm> {
                             onPressed: () {
                               // logIn google
                             },
-                            child: Image.network(
-                                'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1004px-Google_%22G%22_Logo.svg.png',
-                                height: 35,
-                                width: 35))
+                            child: Container(
+                              height: 40,
+                              width: 40,
+                              decoration: new BoxDecoration(
+                                image: new DecorationImage(
+                                  image: new AssetImage('assets/icons/google.png'),
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
+                            ),
+                        )
                       ],
                       mainAxisAlignment: MainAxisAlignment.center,
                     ),
