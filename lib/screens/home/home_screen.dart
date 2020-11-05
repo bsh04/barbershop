@@ -5,7 +5,7 @@ import 'package:firebaseauthproject/widgets/app_bar.dart';
 import 'package:firebaseauthproject/widgets/main_layout.dart';
 import 'package:firebaseauthproject/widgets/custom_drawer.dart';
 import 'package:firebaseauthproject/widgets/map_view.dart';
-import 'package:firebaseauthproject/widgets/service_card.dart';
+import 'file:///D:/Programs/AndroidStudio/Projects/barbershop/lib/screens/home/service_card.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -36,6 +36,7 @@ class _HomeState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
           child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(15.0),
