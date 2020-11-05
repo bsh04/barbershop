@@ -59,7 +59,8 @@ class _HomeState extends State<HomeScreen> {
                   ),
                   Text('НАШИ УСЛУГИ',
                       style: TextStyle(
-                          color: Colors.deepPurpleAccent,
+                          color: Colors.blue,
+                          fontStyle: FontStyle.italic,
                           fontWeight: FontWeight.bold,
                           fontSize: 22)),
                   SizedBox(
@@ -82,7 +83,8 @@ class _HomeState extends State<HomeScreen> {
                       'Наша парикмахерская расположена по адресу ул. Ленина 133',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          color: Colors.deepPurpleAccent,
+                          color: Colors.blue,
+                          fontStyle: FontStyle.italic,
                           fontWeight: FontWeight.bold,
                           fontSize: 22)),
                   SizedBox(

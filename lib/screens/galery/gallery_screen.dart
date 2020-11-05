@@ -46,6 +46,7 @@ class _GalleryState extends State<GalleryScreen> {
     }
     return Scaffold(
         body: Container(
+          color: Colors.white,
       child: SingleChildScrollView(child: Wrap(children: list)),
     ));
   }
