@@ -44,8 +44,7 @@ class _MyTabbedPageState extends State<CustomBottomTabNavigator> {
   }
 
   void onTabTapped(int index) {
-    this._pageController.animateToPage(index,
-        duration: const Duration(milliseconds: 200), curve: Curves.easeInOut);
+    this._pageController.jumpToPage(index);
   }
 
   @override
