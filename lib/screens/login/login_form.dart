@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:firebaseauthproject/api/auth.dart';
 import 'package:firebaseauthproject/blocs/authentication_bloc/authentication_bloc.dart';
 import 'package:firebaseauthproject/blocs/authentication_bloc/authentication_event.dart';
 import 'package:firebaseauthproject/blocs/login_bloc/login_bloc.dart';
@@ -9,6 +10,7 @@ import 'package:firebaseauthproject/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class LoginForm extends StatefulWidget {
@@ -36,11 +38,13 @@ class _LoginFormState extends State<LoginForm> {
   String loginType = 'email';
 
   LoginBloc _loginBloc;
+  Auth _auth;
 
   @override
   void initState() {
     super.initState();
     _loginBloc = BlocProvider.of<LoginBloc>(context);
+    _auth = new Auth();
     _loginController.addListener(_onEmailChange);
     _passwordController.addListener(_onPasswordChange);
   }
@@ -143,7 +147,7 @@ class _LoginFormState extends State<LoginForm> {
                         backgroundColor: const Color(0xff00c853),
                         foregroundColor: Colors.white,
                         onPressed: () {
-                          Navigator.of(context).pushNamed('/home');
+                          _onFormSubmitted();
                         },
                         label: Text('Войти в аккаунт'),
                         icon: Icon(
@@ -213,6 +217,7 @@ class _LoginFormState extends State<LoginForm> {
                         FlatButton(
                           onPressed: () {
                             //logIn VK
+
                           },
                           highlightColor: Colors.white,
                           splashColor: Colors.white,
@@ -272,8 +277,10 @@ class _LoginFormState extends State<LoginForm> {
     _loginBloc.add(LoginPasswordChanged(password: _passwordController.text));
   }
 
-  void _onFormSubmitted() {
-    _loginBloc.add(LoginWithCredentialsPressed(
-        email: _loginController.text, password: _passwordController.text));
+  void _onFormSubmitted() async {
+    var signInResponse = await _auth.signIn(_loginController.text, _passwordController.text);
+    if(signInResponse.code == 201) {
+      Navigator.of(context).pushNamed('/home');
+    }
   }
 }

@@ -7,6 +7,7 @@ import 'package:firebaseauthproject/blocs/register_bloc/register_state.dart';
 import 'package:firebaseauthproject/widgets/gradient_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
@@ -180,8 +181,8 @@ class _RegisterFormState extends State<RegisterForm> {
 
   void _onFormSubmitted() async {
     var registerResponse = await _auth.signUp(_nameController.text, _loginController.text, _passwordController.text);
-    if(registerResponse.code == 200) {
-
+    if(registerResponse.code == 201) {
+      Navigator.of(context).pushNamed('/home');
     }
   }
 }

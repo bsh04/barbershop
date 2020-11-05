@@ -1,13 +1,13 @@
 import 'dart:collection';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebaseauthproject/screens/home/service_card.dart';
 import 'package:firebaseauthproject/widgets/bottom_items.dart';
 import 'package:firebaseauthproject/widgets/app_bar.dart';
 import 'package:firebaseauthproject/widgets/main_layout.dart';
 import 'package:firebaseauthproject/widgets/custom_drawer.dart';
 import 'package:firebaseauthproject/widgets/map_view.dart';
 import 'package:flutter/cupertino.dart';
-import 'file:///D:/Programs/AndroidStudio/Projects/barbershop/lib/screens/home/service_card.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {

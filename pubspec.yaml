@@ -38,6 +38,7 @@ dependencies:
   touchable_opacity: ^1.1.2
   url_launcher: ^5.7.10
   carousel_slider: ^2.3.1
+  shared_preferences: ^0.4.3
 
 
 dev_dependencies:
