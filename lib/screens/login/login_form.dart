@@ -228,21 +228,22 @@ class _LoginFormState extends State<LoginForm> {
                           ),
                         ),
                         FlatButton(
-                            highlightColor: Colors.white,
-                            splashColor: Colors.white,
-                            onPressed: () {
-                              // logIn google
-                            },
-                            child: Container(
-                              height: 40,
-                              width: 40,
-                              decoration: new BoxDecoration(
-                                image: new DecorationImage(
-                                  image: new AssetImage('assets/icons/google.png'),
-                                  fit: BoxFit.fill,
-                                ),
+                          highlightColor: Colors.white,
+                          splashColor: Colors.white,
+                          onPressed: () {
+                            // logIn google
+                          },
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            decoration: new BoxDecoration(
+                              image: new DecorationImage(
+                                image:
+                                    new AssetImage('assets/icons/google.png'),
+                                fit: BoxFit.fill,
                               ),
                             ),
+                          ),
                         )
                       ],
                       mainAxisAlignment: MainAxisAlignment.center,
