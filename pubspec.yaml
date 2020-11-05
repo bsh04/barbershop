@@ -37,6 +37,7 @@ dependencies:
   google_maps_flutter: ^1.0.6
   touchable_opacity: ^1.1.2
   url_launcher: ^5.7.10
+  carousel_slider: ^2.3.1
 
 
 dev_dependencies:
@@ -58,6 +59,7 @@ flutter:
     - assets/icons/logo.png
     - assets/gallery/
     - assets/product/
+    - assets/master/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
