@@ -36,64 +36,67 @@ class _HomeState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-          child: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Center(
-            child: Column(
-          children: <Widget>[
-            Container(
-              height: 100,
-              width: 100,
-              decoration: new BoxDecoration(
-                image: new DecorationImage(
-                  image: new AssetImage('assets/logo.png'),
-                  fit: BoxFit.contain,
+          child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Center(
+              child: Column(
+            children: <Widget>[
+              Container(
+                height: 100,
+                width: 100,
+                decoration: new BoxDecoration(
+                  image: new DecorationImage(
+                    image: new AssetImage('assets/icons/logo.png'),
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
-            ),
-            Column(
-              children: [
-                SizedBox(
-                  height: 30,
-                ),
-                Text('НАШИ УСЛУГИ',
-                    style: TextStyle(
-                        color: Colors.deepPurpleAccent,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22)),
-                SizedBox(
-                  height: 20,
-                ),
-                Center(
-                    child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: services.length,
-                  itemBuilder: (context, index) {
-                    return ServicesCard(
-                        title: services[index].title,
-                        cost: services[index].cost);
-                  },
-                )),
-                SizedBox(
-                  height: 20,
-                ),
-                Text('Наша парикмахерская расположена по адресу ул. Ленина 133',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Colors.deepPurpleAccent,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22)),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  height: 300,
-                  child: CustomMapView(),
-                ),
-              ],
-            )
-          ],
-        )),
+              Column(
+                children: [
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text('НАШИ УСЛУГИ',
+                      style: TextStyle(
+                          color: Colors.deepPurpleAccent,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 22)),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Center(
+                      child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: services.length,
+                    itemBuilder: (context, index) {
+                      return ServicesCard(
+                          title: services[index].title,
+                          cost: services[index].cost);
+                    },
+                  )),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                      'Наша парикмахерская расположена по адресу ул. Ленина 133',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.deepPurpleAccent,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 22)),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    height: 300,
+                    child: CustomMapView(),
+                  ),
+                ],
+              )
+            ],
+          )),
+        ),
       )),
     );
   }
