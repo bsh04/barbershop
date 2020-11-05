@@ -1,3 +1,4 @@
+import 'package:firebaseauthproject/api/auth.dart';
 import 'package:firebaseauthproject/blocs/authentication_bloc/authentication_bloc.dart';
 import 'package:firebaseauthproject/blocs/authentication_bloc/authentication_event.dart';
 import 'package:firebaseauthproject/blocs/register_bloc/register_bloc.dart';
@@ -9,32 +10,30 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
-  _LoginFormState createState() => _LoginFormState();
+  _RegisterFormState createState() => _RegisterFormState();
 }
 
-class _LoginFormState extends State<RegisterForm> {
+class _RegisterFormState extends State<RegisterForm> {
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _loginController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _passwordConfirmController = TextEditingController();
 
   bool get isPopulated =>
-      _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty;
+      _loginController.text.isNotEmpty && _passwordController.text.isNotEmpty;
 
   bool isButtonEnabled(RegisterState state) {
     return state.isFormValid && isPopulated && !state.isSubmitting;
   }
 
   RegisterBloc _registerBloc;
+  Auth _auth;
 
   @override
   void initState() {
     super.initState();
     _registerBloc = BlocProvider.of<RegisterBloc>(context);
-    _nameController.addListener(_onNameChange);
-    _emailController.addListener(_onEmailChange);
-    _passwordController.addListener(_onPasswordChange);
-    _passwordConfirmController.addListener(_onPasswordConfirmChange);
+    _auth = new Auth();
   }
 
   @override
@@ -105,7 +104,7 @@ class _LoginFormState extends State<RegisterForm> {
                           ),
                           // Email
                           TextFormField(
-                             controller: _emailController,
+                             controller: _loginController,
                              decoration: InputDecoration(
                                 icon: Icon(Icons.email),
                                 labelText: "E-mail или телефон",
@@ -179,26 +178,10 @@ class _LoginFormState extends State<RegisterForm> {
     );
   }
 
-  void _onNameChange() {
-    _registerBloc.add(RegisterNameChanged(name: _nameController.text));
-  }
+  void _onFormSubmitted() async {
+    var registerResponse = await _auth.signUp(_nameController.text, _loginController.text, _passwordController.text);
+    if(registerResponse.code == 200) {
 
-  void _onEmailChange() {
-    _registerBloc.add(RegisterEmailChanged(email: _emailController.text));
-  }
-
-  void _onPasswordChange() {
-    _registerBloc
-        .add(RegisterPasswordChanged(password: _passwordController.text));
-  }
-
-  void _onPasswordConfirmChange() {
-    _registerBloc
-        .add(RegisterPasswordConfirmChanged(passwordConfirm: _passwordConfirmController.text));
-  }
-
-  void _onFormSubmitted() {
-    _registerBloc.add(RegisterSubmitted(
-        name: _nameController.text, email: _emailController.text, password: _passwordController.text));
+    }
   }
 }
