@@ -149,6 +149,15 @@ class _RegisterFormState extends State<RegisterForm> {
     );
   }
 
+  @override
+  void dispose() {
+    _loginController.dispose();
+    _passwordController.dispose();
+    _nameController.dispose();
+    _passwordConfirmController.dispose();
+    super.dispose();
+  }
+
   void _onFormSubmitted() async {
     if (_loginController.text != '' &&
         _passwordController.text != '' &&

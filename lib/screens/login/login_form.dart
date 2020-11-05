@@ -4,22 +4,12 @@ import 'package:firebaseauthproject/api/auth.dart';
 import 'package:firebaseauthproject/blocs/authentication_bloc/authentication_bloc.dart';
 import 'package:firebaseauthproject/blocs/authentication_bloc/authentication_event.dart';
 import 'package:firebaseauthproject/blocs/login_bloc/login_bloc.dart';
-import 'package:firebaseauthproject/blocs/login_bloc/login_event.dart';
 import 'package:firebaseauthproject/blocs/login_bloc/login_state.dart';
-import 'package:firebaseauthproject/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class LoginForm extends StatefulWidget {
-  final UserRepository _userRepository;
-
-  const LoginForm({Key key, UserRepository userRepository})
-      : _userRepository = userRepository,
-        super(key: key);
-
   @override
   _LoginFormState createState() => _LoginFormState();
 }
@@ -37,16 +27,12 @@ class _LoginFormState extends State<LoginForm> {
 
   String loginType = 'email';
 
-  LoginBloc _loginBloc;
   Auth _auth;
 
   @override
   void initState() {
     super.initState();
-    _loginBloc = BlocProvider.of<LoginBloc>(context);
     _auth = new Auth();
-    _loginController.addListener(_onEmailChange);
-    _passwordController.addListener(_onPasswordChange);
   }
 
   @override
@@ -268,14 +254,6 @@ class _LoginFormState extends State<LoginForm> {
     _loginController.dispose();
     _passwordController.dispose();
     super.dispose();
-  }
-
-  void _onEmailChange() {
-    _loginBloc.add(LoginEmailChange(email: _loginController.text));
-  }
-
-  void _onPasswordChange() {
-    _loginBloc.add(LoginPasswordChanged(password: _passwordController.text));
   }
 
   void _onFormSubmitted() async {
