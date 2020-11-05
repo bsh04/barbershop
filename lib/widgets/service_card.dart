@@ -13,10 +13,16 @@ class ServicesCard extends StatelessWidget {
           border: Border(
         bottom: BorderSide(color: Colors.black26, width: 1),
       )),
-      height: 30,
+      height: 35,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[Text('$title'), Text(cost != '' ? '$cost Р' : '—    ', style: TextStyle(fontWeight: FontWeight.bold),)],
+        children: <Widget>[
+          Text('$title', style: TextStyle(fontStyle: FontStyle.italic),),
+          Text(
+            cost != '' ? '$cost Р' : '—    ',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          )
+        ],
       ),
     );
   }
