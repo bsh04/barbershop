@@ -1,3 +1,4 @@
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebaseauthproject/blocs/authentication_bloc/authentication_state.dart';
 import 'package:firebaseauthproject/blocs/simple_bloc_observer.dart';
@@ -12,26 +13,32 @@ import 'package:firebaseauthproject/screens/shop/shop_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart';
-
-import 'blocs/authentication_bloc/authentication_bloc.dart';
-import 'blocs/authentication_bloc/authentication_event.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    systemNavigationBarColor: Colors.white,
+    systemNavigationBarColor: Colors.blue,
     statusBarColor: Colors.indigo,
   ));
   WidgetsFlutterBinding.ensureInitialized();
+
+  String token;
+
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  token = prefs.getString('login');
+
   await Firebase.initializeApp();
   Bloc.observer = SimpleBlocObserver();
   final UserRepository userRepository = UserRepository();
-  runApp(MyApp(userRepository: userRepository));
+  runApp(MyApp(userRepository: userRepository, token: token));
 }
 
 class MyApp extends StatelessWidget {
   final UserRepository _userRepository;
+  final String token;
 
-  MyApp({UserRepository userRepository}) : _userRepository = userRepository;
+  MyApp({UserRepository userRepository, this.token})
+      : _userRepository = userRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +47,12 @@ class MyApp extends StatelessWidget {
         primaryColor: Color(0xff6a515e),
         cursorColor: Color(0xff6a515e),
       ),
-      initialRoute: '/',
+      initialRoute: token != '' && token != null ? '/home' : '/',
       debugShowCheckedModeBanner: false,
       routes: {
         '/': (BuildContext context) => LoginScreen(),
-        '/register': (BuildContext context) => RegisterScreen(userRepository: _userRepository),
+        '/register': (BuildContext context) =>
+            RegisterScreen(userRepository: _userRepository),
         '/home': (BuildContext context) => LoginMain(),
         '/gallery': (BuildContext context) => GalleryScreen(),
         '/shop': (BuildContext context) => ShopScreen(),

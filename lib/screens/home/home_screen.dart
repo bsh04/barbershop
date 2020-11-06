@@ -9,6 +9,7 @@ import 'package:firebaseauthproject/widgets/custom_drawer.dart';
 import 'package:firebaseauthproject/widgets/map_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -51,121 +52,147 @@ List<MasterModel> masters = [
 class _HomeState extends State<HomeScreen> {
   ScrollController _controller = new ScrollController();
 
+  Future<bool> _onBackPressed() {
+    return showDialog(
+      context: context,
+      builder: (context) => new AlertDialog(
+        title: new Text('Внимание'),
+        content: new Text('Вы действительно хотите выйти из приложения?'),
+        actions: <Widget>[
+          new TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text("Нет"),
+          ),
+          SizedBox(height: 16),
+          new TextButton(
+            onPressed: () => SystemNavigator.pop(),
+            child: Text("Да"),
+          ),
+        ],
+      ),
+    ) ??
+        false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Center(
-                  child: Column(
-                children: <Widget>[
-                  Container(
-                    height: 100,
-                    width: 100,
-                    decoration: new BoxDecoration(
-                      image: new DecorationImage(
-                        image: new AssetImage('assets/icons/logo.png'),
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Text('НАШИ УСЛУГИ',
-                          style: TextStyle(
-                              color: Colors.blue,
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 22)),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Center(
-                          child: ListView.builder(
-                        physics: ScrollPhysics(),
-                        controller: _controller,
-                        shrinkWrap: true,
-                        itemCount: services.length,
-                        itemBuilder: (context, index) {
-                          return ServicesCard(
-                              title: services[index].title,
-                              cost: services[index].cost);
-                        },
-                      )),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text('Наши лучшие мастера',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.blue,
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 22)),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      CarouselSlider(
-                        options: CarouselOptions(height: 400.0),
-                        items: masters.map((i) {
-                          return Builder(
-                            builder: (BuildContext context) {
-                              return Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  margin: EdgeInsets.symmetric(horizontal: 5.0),
-                                  decoration: BoxDecoration(
-                                    image: new DecorationImage(
-                                      image: new AssetImage(
-                                          'assets/master/master_${i.image}.png'),
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                  child: Container(
-                                    child: Text(
-                                      '${i.title}',
-                                      style: TextStyle(
-                                          backgroundColor: Colors.black,
-                                          fontSize: 30.0,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ));
-                            },
-                          );
-                        }).toList(),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                          'Наша парикмахерская расположена по адресу ул. Ленина 133',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.blue,
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 22)),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        height: 300,
-                        child: CustomMapView(),
-                      ),
-                    ],
-                  )
-                ],
-              )),
-            ),
-          )),
+      body: WillPopScope(
+        // ignore: missing_return
+        onWillPop: () { _onBackPressed(); },
+        child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Center(
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          height: 100,
+                          width: 100,
+                          decoration: new BoxDecoration(
+                            image: new DecorationImage(
+                              image: new AssetImage('assets/icons/logo.png'),
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
+                        Column(
+                          children: [
+                            SizedBox(
+                              height: 30,
+                            ),
+                            Text('НАШИ УСЛУГИ',
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 22)),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Center(
+                                child: ListView.builder(
+                                  physics: ScrollPhysics(),
+                                  controller: _controller,
+                                  shrinkWrap: true,
+                                  itemCount: services.length,
+                                  itemBuilder: (context, index) {
+                                    return ServicesCard(
+                                        title: services[index].title,
+                                        cost: services[index].cost);
+                                  },
+                                )),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text('Наши лучшие мастера',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 22)),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            CarouselSlider(
+                              options: CarouselOptions(height: 400.0),
+                              items: masters.map((i) {
+                                return Builder(
+                                  builder: (BuildContext context) {
+                                    return Container(
+                                        width: MediaQuery.of(context).size.width,
+                                        margin: EdgeInsets.symmetric(horizontal: 5.0),
+                                        decoration: BoxDecoration(
+                                          image: new DecorationImage(
+                                            image: new AssetImage(
+                                                'assets/master/master_${i.image}.png'),
+                                            fit: BoxFit.fill,
+                                          ),
+                                        ),
+                                        child: Container(
+                                          child: Text(
+                                            '${i.title}',
+                                            style: TextStyle(
+                                                backgroundColor: Colors.black,
+                                                fontSize: 30.0,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ));
+                                  },
+                                );
+                              }).toList(),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                                'Наша парикмахерская расположена по адресу ул. Ленина 133',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 22)),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              height: 300,
+                              child: CustomMapView(),
+                            ),
+                          ],
+                        )
+                      ],
+                    )),
+              ),
+            )),
+      )
     );
   }
 }

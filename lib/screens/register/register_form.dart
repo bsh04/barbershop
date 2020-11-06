@@ -168,10 +168,6 @@ class _RegisterFormState extends State<RegisterForm> {
       } else {
         var registerResponse = await _auth.signUp(_nameController.text,
             _loginController.text, _passwordController.text);
-        print('Регистрация');
-        print(registerResponse);
-        print(registerResponse.code);
-        print(registerResponse.message);
         if (registerResponse.code == 201) {
           _showDialog(registerResponse.message, true);
         } else {

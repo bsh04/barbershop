@@ -28,6 +28,8 @@ class Auth {
     if (userSnapshot.exists) {
       var dbPass = userSnapshot.data()['password'];
       if (dbPass == password) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('login', login);
         return new ResponseModel(201, 'Вход выполнен успешно.', null);
       }
       return new ResponseModel(401, 'Неверный пароль.', null);

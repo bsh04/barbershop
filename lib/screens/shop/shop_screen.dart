@@ -2,6 +2,7 @@ import 'package:firebaseauthproject/screens/shop/product_card.dart';
 import 'package:firebaseauthproject/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 
 class DataModel {
   DataModel(this.title, this.desc, this.cost, this.image);
@@ -67,38 +68,63 @@ class _ShopScreenState extends State<ShopScreen> {
         image: item.image, title: item.title, desc: item.desc, cost: item.cost);
   }).toList();
 
+  Future<bool> _onBackPressed() {
+    return showDialog(
+      context: context,
+      builder: (context) => new AlertDialog(
+        title: new Text('Внимание'),
+        content: new Text('Вы действительно хотите выйти из приложения?'),
+        actions: <Widget>[
+          new TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text("Нет"),
+          ),
+          SizedBox(height: 16),
+          new TextButton(
+            onPressed: () => SystemNavigator.pop(),
+            child: Text("Да"),
+          ),
+        ],
+      ),
+    ) ??
+        false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Container(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Center(
-                      child: Text(
-                          'ВЫ МОЖЕТЕ ВЫБРАТЬ И ПРИОБРЕСТИ ТОВАРЫ ОНЛАЙН',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.blue,
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 22))),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                      child: ListView(
-                    physics: ScrollPhysics(),
-                    controller: _controller,
-                    shrinkWrap: true,
-                    children: _products,
-                  ))
-                ],
-              ),
-            )));
+        body: WillPopScope(
+          onWillPop: () { _onBackPressed(); },
+          child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Container(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Center(
+                        child: Text(
+                            'ВЫ МОЖЕТЕ ВЫБРАТЬ И ПРИОБРЕСТИ ТОВАРЫ ОНЛАЙН',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 22))),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                        child: ListView(
+                          physics: ScrollPhysics(),
+                          controller: _controller,
+                          shrinkWrap: true,
+                          children: _products,
+                        ))
+                  ],
+                ),
+              ))),
+        );
   }
 }

@@ -3,6 +3,7 @@ import 'package:firebaseauthproject/widgets/image_dialog.dart';
 import 'package:firebaseauthproject/widgets/main_layout.dart';
 import 'package:firebaseauthproject/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 class GalleryScreen extends StatefulWidget {
@@ -21,6 +22,29 @@ class _GalleryState extends State<GalleryScreen> {
     _isOpen = true;
   }
 
+  Future<bool> _onBackPressed() {
+    return showDialog(
+      context: context,
+      builder: (context) =>
+      new AlertDialog(
+        title: new Text('Внимание'),
+        content: new Text('Вы действительно хотите выйти из приложения?'),
+        actions: <Widget>[
+          new TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text("Нет"),
+          ),
+          SizedBox(height: 16),
+          new TextButton(
+            onPressed: () => SystemNavigator.pop(),
+            child: Text("Да"),
+          ),
+        ],
+      ),
+    ) ??
+        false;
+  }
+
   @override
   Widget build(BuildContext context) {
     List<Widget> list = new List<Widget>();
@@ -34,7 +58,10 @@ class _GalleryState extends State<GalleryScreen> {
         },
         child: Container(
           height: 160,
-          width: MediaQuery.of(context).size.width * .3333,
+          width: MediaQuery
+              .of(context)
+              .size
+              .width * .3333,
           decoration: new BoxDecoration(
             image: new DecorationImage(
               image: new AssetImage('assets/gallery/${i + 1}.png'),
@@ -45,9 +72,12 @@ class _GalleryState extends State<GalleryScreen> {
       ));
     }
     return Scaffold(
-        body: Container(
-          color: Colors.white,
-      child: SingleChildScrollView(child: Wrap(children: list)),
+      body: Container(
+        color: Colors.white,
+        child: WillPopScope(
+            child: SingleChildScrollView(child: Wrap(children: list)),
+            onWillPop: () { _onBackPressed(); },
+      ),
     ));
   }
 }

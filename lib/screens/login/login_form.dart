@@ -35,6 +35,38 @@ class _LoginFormState extends State<LoginForm> {
     _auth = new Auth();
   }
 
+  Future<void> _showDialog(message, isLog) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Внимание'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(message),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('ОК'),
+              onPressed: () {
+                if (isLog) {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                } else {
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginBloc, LoginState>(
@@ -203,7 +235,6 @@ class _LoginFormState extends State<LoginForm> {
                         FlatButton(
                           onPressed: () {
                             //logIn VK
-
                           },
                           highlightColor: Colors.white,
                           splashColor: Colors.white,
@@ -257,9 +288,18 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void _onFormSubmitted() async {
-    var signInResponse = await _auth.signIn(_loginController.text, _passwordController.text);
-    if(signInResponse.code == 201) {
-      Navigator.of(context).pushNamed('/home');
+    if (_loginController.text != '' && _passwordController.text != '') {
+      var signInResponse =
+          await _auth.signIn(_loginController.text, _passwordController.text);
+      if (signInResponse.code == 201) {
+        Navigator.of(context).pushNamed('/home');
+      } else {
+        _showDialog(
+            'Неверный ${loginType == 'phone' ? 'телефон' : 'e-mail'} или пароль',
+            false);
+      }
+    } else {
+      _showDialog('Необходимо заполнить все поля', false);
     }
   }
 }

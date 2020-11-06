@@ -5,6 +5,7 @@ import 'package:firebaseauthproject/screens/shop/shop_screen.dart';
 import 'package:firebaseauthproject/widgets/app_bar.dart';
 import 'package:firebaseauthproject/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'bottom_items.dart';
 
 class CustomBottomTabNavigator extends StatefulWidget {
@@ -17,6 +18,14 @@ class CustomBottomTabNavigator extends StatefulWidget {
 class _MyTabbedPageState extends State<CustomBottomTabNavigator> {
   int _pageIndex = 0;
   PageController _pageController;
+
+
+  String token;
+
+  _getToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString('login');
+  }
 
   List<Widget> tabPages = [
     HomeScreen(),
@@ -49,8 +58,9 @@ class _MyTabbedPageState extends State<CustomBottomTabNavigator> {
 
   @override
   Widget build(BuildContext context) {
+    _getToken();
     return Scaffold(
-      drawer: CustomDrawer(),
+      drawer: CustomDrawer(token: token,),
       appBar: CustomAppBar(allDestinations[_pageIndex].title, true),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _pageIndex,
