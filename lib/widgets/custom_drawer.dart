@@ -1,7 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
-class CustomDrawer extends StatelessWidget {
+class CustomDrawer extends StatefulWidget {
+  final String token;
+
+  const CustomDrawer({Key key, this.token}) : super(key: key);
+
+  @override
+  _CustomDrawerState createState() => new _CustomDrawerState(token);
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
+  String token;
+
+  _CustomDrawerState(this.token);
+
+  _logOut() async {
+    _showDialog();
+  }
+
+  Future<void> _showDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Внимание'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Вы действительно хотите выйти из аккаунта?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+                child: Text('Да'),
+                onPressed: () async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  prefs.remove('login');
+                  Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
+                }),
+            TextButton(
+              child: Text('Нет'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -58,22 +112,22 @@ class CustomDrawer extends StatelessWidget {
                         alignment: Alignment.topLeft,
                         padding: EdgeInsets.only(left: 30.0, top: 20.0),
                         child: TouchableOpacity(
-                          onTap: (){
-                            // REMOVE FUCKING TOKEN!!!
+                          onTap: () {
+                            _logOut();
                           },
-                         child: Row(
-                           children: [
-                             Icon(Icons.login, color: Colors.white),
-                             SizedBox(width: 10),
-                             Text(
-                               'Сменить пользователя',
-                               style: TextStyle(
-                                   fontWeight: FontWeight.bold,
-                                   fontSize: 20,
-                                   color: Colors.white),
-                             ),
-                           ],
-                         ),
+                          child: Row(
+                            children: [
+                              Icon(Icons.login, color: Colors.white),
+                              SizedBox(width: 10),
+                              Text(
+                                'Сменить пользователя',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: Colors.white),
+                              ),
+                            ],
+                          ),
                         ))
                   ]),
                   Column(verticalDirection: VerticalDirection.up, children: [

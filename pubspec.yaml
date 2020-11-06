@@ -39,7 +39,7 @@ dependencies:
   url_launcher: ^5.7.10
   carousel_slider: ^2.3.1
   shared_preferences: ^0.4.3
-
+  double_back_to_close_app: ^1.2.0
 
 dev_dependencies:
   flutter_test:
