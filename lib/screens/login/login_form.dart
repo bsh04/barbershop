@@ -257,6 +257,7 @@ class _LoginFormState extends State<LoginForm> {
                           splashColor: Colors.white,
                           onPressed: () {
                             // logIn google
+                            googleSignIn();
                           },
                           child: Container(
                             height: 40,
@@ -288,6 +289,17 @@ class _LoginFormState extends State<LoginForm> {
     _loginController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  void googleSignIn() async {
+    var signInResponse = await _authService.signInWithGoogle();
+    if (signInResponse.code == 201) {
+      Navigator.of(context).pushNamed('/home');
+    } else {
+      _showDialog(
+          'Что то пошло не так :(',
+          false);
+    }
   }
 
   void _onFormSubmitted() async {
