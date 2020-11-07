@@ -3,10 +3,10 @@ import 'package:firebaseauthproject/models/response_model.dart';
 import 'package:firebaseauthproject/models/value_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Auth {
+class AuthService {
   CollectionReference _usersRef;
 
-  Auth() :
+  AuthService() :
         _usersRef = FirebaseFirestore.instance.collection("users");
 
   Future<ResponseModel<IValueModel>> signUp(String name, String login, String password) async {
