@@ -291,8 +291,6 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void _onFormSubmitted() async {
-    var aaa = await ProductsService.getProductsList();
-    print(aaa);
     if (_loginController.text != '' && _passwordController.text != '') {
       var signInResponse =
           await _authService.signIn(_loginController.text, _passwordController.text);
