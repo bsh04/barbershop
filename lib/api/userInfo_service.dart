@@ -3,13 +3,9 @@ import 'package:firebaseauthproject/models/response_model.dart';
 import 'package:firebaseauthproject/models/users_model.dart';
 
 class UserInfoService {
-  CollectionReference _usersRef;
 
-  UserInfoService() :
-        _usersRef = FirebaseFirestore.instance.collection("users");
-
-  Future<ResponseModel<UserModel>> getUserInfo(String login) async {
-    var userSnapshot = await _usersRef.doc(login).get();
+  static Future<ResponseModel<UserModel>> getUserInfo(String login) async {
+    var userSnapshot = await FirebaseFirestore.instance.collection("users").doc(login).get();
     if (userSnapshot.exists) {
       var name = userSnapshot.data()['name'];
       var userModel = new UserModel(name, login);
@@ -17,4 +13,5 @@ class UserInfoService {
     }
     return new ResponseModel(400, 'Пользователь не найден.', null);
   }
+
 }
