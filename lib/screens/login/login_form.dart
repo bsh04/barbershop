@@ -1,6 +1,7 @@
 import 'dart:ui';
 
-import 'package:firebaseauthproject/api/auth.dart';
+import 'package:firebaseauthproject/api/auth_service.dart';
+import 'package:firebaseauthproject/api/masters_service.dart';
 import 'package:firebaseauthproject/blocs/authentication_bloc/authentication_bloc.dart';
 import 'package:firebaseauthproject/blocs/authentication_bloc/authentication_event.dart';
 import 'package:firebaseauthproject/blocs/login_bloc/login_bloc.dart';
@@ -27,12 +28,12 @@ class _LoginFormState extends State<LoginForm> {
 
   String loginType = 'email';
 
-  Auth _auth;
+  AuthService _authService;
 
   @override
   void initState() {
     super.initState();
-    _auth = new Auth();
+    _authService = new AuthService();
   }
 
   Future<void> _showDialog(message, isLog) async {
@@ -290,7 +291,7 @@ class _LoginFormState extends State<LoginForm> {
   void _onFormSubmitted() async {
     if (_loginController.text != '' && _passwordController.text != '') {
       var signInResponse =
-          await _auth.signIn(_loginController.text, _passwordController.text);
+          await _authService.signIn(_loginController.text, _passwordController.text);
       if (signInResponse.code == 201) {
         Navigator.of(context).pushNamed('/home');
       } else {

@@ -1,4 +1,4 @@
-import 'package:firebaseauthproject/api/auth.dart';
+import 'package:firebaseauthproject/api/auth_service.dart';
 import 'package:flutter/material.dart';
 
 class RegisterForm extends StatefulWidget {
@@ -16,12 +16,12 @@ class _RegisterFormState extends State<RegisterForm> {
   bool get isPopulated =>
       _loginController.text.isNotEmpty && _passwordController.text.isNotEmpty;
 
-  Auth _auth;
+  AuthService _auth;
 
   @override
   void initState() {
     super.initState();
-    _auth = new Auth();
+    _auth = new AuthService();
   }
 
   Future<void> _showDialog(message, isReg) async {

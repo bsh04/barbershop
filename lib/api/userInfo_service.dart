@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebaseauthproject/models/response_model.dart';
 import 'package:firebaseauthproject/models/users_model.dart';
 
-class UserInfo {
+class UserInfoService {
   CollectionReference _usersRef;
 
-  UserInfo() :
+  UserInfoService() :
         _usersRef = FirebaseFirestore.instance.collection("users");
 
   Future<ResponseModel<UserModel>> getUserInfo(String login) async {
