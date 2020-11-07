@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:firebaseauthproject/api/auth_service.dart';
 import 'package:firebaseauthproject/api/masters_service.dart';
+import 'package:firebaseauthproject/api/products_service.dart';
 import 'package:firebaseauthproject/api/userInfo_service.dart';
 import 'package:firebaseauthproject/blocs/authentication_bloc/authentication_bloc.dart';
 import 'package:firebaseauthproject/blocs/authentication_bloc/authentication_event.dart';
@@ -290,6 +291,8 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void _onFormSubmitted() async {
+    var aaa = await ProductsService.getProductsList();
+    print(aaa);
     if (_loginController.text != '' && _passwordController.text != '') {
       var signInResponse =
           await _authService.signIn(_loginController.text, _passwordController.text);
