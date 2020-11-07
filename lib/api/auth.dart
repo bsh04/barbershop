@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebaseauthproject/api/response_model.dart';
+import 'package:firebaseauthproject/models/response_model.dart';
+import 'package:firebaseauthproject/models/value_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Auth {
@@ -8,7 +9,7 @@ class Auth {
   Auth() :
         _usersRef = FirebaseFirestore.instance.collection("users");
 
-  Future<ResponseModel> signUp(String name, String login, String password) async {
+  Future<ResponseModel<IValueModel>> signUp(String name, String login, String password) async {
 
     var userSnapshot = await _usersRef.doc(login).get();
     if (userSnapshot.exists) {
@@ -23,7 +24,7 @@ class Auth {
     return new ResponseModel(201, 'Аккаунт успешно создан.', null);
   }
 
-  Future<ResponseModel> signIn(String login, String password) async {
+  Future<ResponseModel<IValueModel>> signIn(String login, String password) async {
     var userSnapshot = await _usersRef.doc(login).get();
     if (userSnapshot.exists) {
       var dbPass = userSnapshot.data()['password'];

@@ -1,7 +1,7 @@
-class ResponseModel {
+class ResponseModel<TModel> {
   int code;
   String message;
-  Object data;
+  TModel data;
 
   ResponseModel(this.code, this.message, this.data);
 }
