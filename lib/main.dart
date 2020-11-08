@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
         '/shop': (BuildContext context) => ShopScreen(),
         '/call': (BuildContext context) => CallScreen(),
         '/news': (BuildContext context) => NewsScreen(token: token),
-        '/stocks': (BuildContext context) => StocksScreen()
+        '/stocks': (BuildContext context) => StocksScreen(token: token)
       },
     );
   }
