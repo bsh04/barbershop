@@ -65,6 +65,58 @@ class _CustomDrawerState extends State<CustomDrawer> {
     );
   }
 
+  _staticItem(title, icon) {
+    return Container(
+        alignment: Alignment.topLeft,
+        padding: EdgeInsets.only(left: 30.0, top: 20.0),
+        child: Row(
+          children: [
+            Icon(icon, color: Colors.white),
+            SizedBox(width: 10),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.55,
+              child: Text(
+                '$title',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.white),
+              ),
+            )
+          ],
+        )) ??
+        false;
+  }
+
+  _touchItem(title, icon, route, isFirst) {
+    return Container(
+        alignment: Alignment.topLeft,
+        padding: EdgeInsets.only(left: 30.0, top: isFirst ? 40.0 : 20.0),
+        child: TouchableOpacity(
+            onTap: () {
+              Navigator.of(context).pushNamed(route);
+            },
+            child: Row(
+              children: [
+                Icon(icon,
+                    color: Colors.white),
+                SizedBox(width: 10),
+                Container(
+                  width:
+                  MediaQuery.of(context).size.width * 0.55,
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Colors.white),
+                  ),
+                )
+              ],
+            ))) ??
+        false;
+  }
+
   @override
   Widget build(BuildContext context) {
     print(userData);
@@ -88,57 +140,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     SizedBox(
                       height: 30,
                     ),
-                    Container(
-                        alignment: Alignment.topLeft,
-                        padding: EdgeInsets.only(left: 30.0),
-                        child: Row(children: [
-                          Icon(Icons.assignment_ind, color: Colors.white),
-                          SizedBox(width: 10),
-                          Text(
-                            '${userData.name}',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                                color: Colors.white),
-                          )
-                        ])),
-                    Container(
-                        alignment: Alignment.topLeft,
-                        padding: EdgeInsets.only(left: 30.0, top: 20.0),
-                        child: Row(
-                          children: [
-                            Icon(Icons.person, color: Colors.white),
-                            SizedBox(width: 10),
-                            Text(
-                              '${userData.login}',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: Colors.white),
-                            )
-                          ],
-                        )),
-                    Container(
-                        alignment: Alignment.topLeft,
-                        padding: EdgeInsets.only(left: 30.0, top: 20.0),
-                        child: TouchableOpacity(
-                          onTap: () {
-                            _logOut();
-                          },
-                          child: Row(
-                            children: [
-                              Icon(Icons.login, color: Colors.white),
-                              SizedBox(width: 10),
-                              Text(
-                                'Сменить пользователя',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                    color: Colors.white),
-                              ),
-                            ],
-                          ),
-                        ))
+                    _staticItem(userData.name, Icons.assignment_ind),
+                    _staticItem(userData.login, Icons.person),
+                    _touchItem('Главная', Icons.home, '/home', true),
+                    _touchItem('Новости', Icons.fiber_new_sharp, '/news', false),
+                    _touchItem('Акции', Icons.add_shopping_cart, '/stocks', false),
                   ]),
                   Column(verticalDirection: VerticalDirection.up, children: [
                     Align(
@@ -152,6 +158,30 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               fontSize: 20,
                               color: Colors.white)),
                     )),
+                    Container(
+                        alignment: Alignment.topLeft,
+                        padding: EdgeInsets.only(left: 30.0, top: 20.0),
+                        child: TouchableOpacity(
+                          onTap: () {
+                            _logOut();
+                          },
+                          child: Row(
+                            children: [
+                              Icon(Icons.login, color: Colors.white),
+                              SizedBox(width: 10),
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.55,
+                                child: Text(
+                                  'Сменить пользователя',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Colors.white),
+                                ),
+                              )
+                            ],
+                          ),
+                        )),
                   ]),
                 ],
               ),
