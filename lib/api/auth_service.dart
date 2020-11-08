@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebaseauthproject/models/response_model.dart';
-import 'package:firebaseauthproject/models/value_model.dart';
+import 'package:firebaseauthproject/models/base_model.dart';
 import 'package:flutter_login_vk/flutter_login_vk.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,7 +12,7 @@ class AuthService {
   AuthService() :
         _usersRef = FirebaseFirestore.instance.collection("users");
 
-  Future<ResponseModel<IValueModel>> signUp(String name, String login, String password) async {
+  Future<ResponseModel<IBaseModel>> signUp(String name, String login, String password) async {
 
     var userSnapshot = await _usersRef.doc(login).get();
     if (userSnapshot.exists) {
@@ -27,7 +27,7 @@ class AuthService {
     return new ResponseModel(201, 'Аккаунт успешно создан.', null);
   }
 
-  Future<ResponseModel<IValueModel>> signIn(String login, String password) async {
+  Future<ResponseModel<IBaseModel>> signIn(String login, String password) async {
     var userSnapshot = await _usersRef.doc(login).get();
     if (userSnapshot.exists) {
       var dbPass = userSnapshot.data()['password'];
@@ -41,7 +41,7 @@ class AuthService {
     return new ResponseModel(400, 'Пользователь не найден.', null);
   }
 
-  Future<ResponseModel<IValueModel>> signInWithGoogle() async {
+  Future<ResponseModel<IBaseModel>> signInWithGoogle() async {
 
     GoogleSignInAccount googleUser;
     try {
@@ -72,7 +72,7 @@ class AuthService {
 
   }
 
-  Future<ResponseModel<IValueModel>> signInWithVk() async {
+  Future<ResponseModel<IBaseModel>> signInWithVk() async {
     // Trigger the authentication flow
     final vk = new VKLogin();
     final appId = '7654749'; // Your application ID

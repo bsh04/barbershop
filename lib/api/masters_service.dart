@@ -4,7 +4,7 @@ import 'package:firebaseauthproject/models/response_model.dart';
 
 class MastersService {
 
-  static Future<ResponseModel<List<MasterModel>>> getMastersList() async {
+  static Future<ResponseModel<List<MasterModel>>> getAllMasters() async {
     var mastersSnapshot = await FirebaseFirestore.instance.collection("staff").get();
     if (mastersSnapshot.docs.isNotEmpty) {
       var masterList = new List<MasterModel>();

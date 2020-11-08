@@ -1,18 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebaseauthproject/models/product_model.dart';
+import 'package:firebaseauthproject/api/base_service.dart';
+import 'package:firebaseauthproject/models/post_model.dart';
 import 'package:firebaseauthproject/models/response_model.dart';
 
-class ProductsService {
+class PostService extends BaseService<PostModel> {
+  ItemCreator<PostModel> creator;
+  PostService(this.creator) : super(creator);
 
-  static Future<ResponseModel<List<ProductModel>>> getAllProducts() async {
+  static Future<ResponseModel<List<PostModel>>> getAllNews() async {
+    var a = new BaseService((document) => creator)
     var productsSnapshot = await FirebaseFirestore.instance.collection("products").get();
     if (productsSnapshot.docs.isNotEmpty) {
-      var productsList = new List<ProductModel>();
+      var productsList = new List<PostModel>();
       productsSnapshot.docs.forEach((productSnapshot) {
         var product = productSnapshot.data();
         try {
           double price = (product["price"]).toDouble();
-          productsList.add(new ProductModel(product["name"], product["description"], price, product["url"]));
+          productsList.add(new PostModel(product["name"], product["description"], price, product["url"]));
         } catch (e) {
           print("Failed to get product $productSnapshot");
         }
