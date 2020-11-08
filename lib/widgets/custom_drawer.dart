@@ -3,19 +3,28 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
+class UserModel {
+  String name;
+  String login;
+
+  UserModel(this.name, this.login);
+}
+
 class CustomDrawer extends StatefulWidget {
   final String token;
+  final UserModel userData;
 
-  const CustomDrawer({Key key, this.token}) : super(key: key);
+  const CustomDrawer({Key key, this.token, this.userData}) : super(key: key);
 
   @override
-  _CustomDrawerState createState() => new _CustomDrawerState(token);
+  _CustomDrawerState createState() => new _CustomDrawerState(token, userData);
 }
 
 class _CustomDrawerState extends State<CustomDrawer> {
   String token;
+  UserModel userData;
 
-  _CustomDrawerState(this.token);
+  _CustomDrawerState(this.token, this.userData);
 
   _logOut() async {
     _showDialog();
@@ -58,6 +67,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    print(userData);
     return Drawer(
       child: Scaffold(
           body: Container(
@@ -85,7 +95,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           Icon(Icons.assignment_ind, color: Colors.white),
                           SizedBox(width: 10),
                           Text(
-                            'Привет, Иван Иванов',
+                            '${userData.name}',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20,
@@ -100,7 +110,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             Icon(Icons.person, color: Colors.white),
                             SizedBox(width: 10),
                             Text(
-                              'Login (email / phone)',
+                              '${userData.login}',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20,
