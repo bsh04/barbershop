@@ -238,6 +238,7 @@ class _LoginFormState extends State<LoginForm> {
                         FlatButton(
                           onPressed: () {
                             //logIn VK
+                            vkSignIn();
                           },
                           highlightColor: Colors.white,
                           splashColor: Colors.white,
@@ -293,6 +294,17 @@ class _LoginFormState extends State<LoginForm> {
 
   void googleSignIn() async {
     var signInResponse = await _authService.signInWithGoogle();
+    if (signInResponse.code == 201) {
+      Navigator.of(context).pushNamed('/home');
+    } else {
+      _showDialog(
+          'Что то пошло не так :(',
+          false);
+    }
+  }
+
+  void vkSignIn() async {
+    var signInResponse = await _authService.signInWithVk();
     if (signInResponse.code == 201) {
       Navigator.of(context).pushNamed('/home');
     } else {
