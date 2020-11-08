@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:firebaseauthproject/api/auth_service.dart';
 import 'package:firebaseauthproject/api/masters_service.dart';
+import 'package:firebaseauthproject/api/posts_service.dart';
 import 'package:firebaseauthproject/api/products_service.dart';
 import 'package:firebaseauthproject/api/userInfo_service.dart';
 import 'package:firebaseauthproject/blocs/authentication_bloc/authentication_bloc.dart';
