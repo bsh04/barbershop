@@ -15,6 +15,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'screens/news/news_screen.dart';
+import 'screens/stocks/stocks_screen.dart';
+
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     systemNavigationBarColor: Colors.blue,
@@ -56,7 +59,9 @@ class MyApp extends StatelessWidget {
         '/home': (BuildContext context) => LoginMain(),
         '/gallery': (BuildContext context) => GalleryScreen(),
         '/shop': (BuildContext context) => ShopScreen(),
-        '/call': (BuildContext context) => CallScreen()
+        '/call': (BuildContext context) => CallScreen(),
+        '/news': (BuildContext context) => NewsScreen(token: token),
+        '/stocks': (BuildContext context) => StocksScreen()
       },
     );
   }
