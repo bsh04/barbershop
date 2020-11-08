@@ -43,8 +43,7 @@ class _RegisterFormState extends State<RegisterForm> {
               child: Text('ОК'),
               onPressed: () {
                 if (isReg) {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).pop();
+                  Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
                 } else {
                   Navigator.of(context).pop();
                 }

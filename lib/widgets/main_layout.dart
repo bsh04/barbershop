@@ -1,3 +1,5 @@
+import 'package:firebaseauthproject/api/products_service.dart';
+import 'package:firebaseauthproject/api/userInfo_service.dart';
 import 'package:firebaseauthproject/screens/call/call_screen.dart';
 import 'package:firebaseauthproject/screens/galery/gallery_screen.dart';
 import 'package:firebaseauthproject/screens/home/home_screen.dart';
@@ -17,14 +19,15 @@ class CustomBottomTabNavigator extends StatefulWidget {
 
 class _MyTabbedPageState extends State<CustomBottomTabNavigator> {
   int _pageIndex = 0;
+  String token;
+  var responseData;
+
   PageController _pageController;
 
-
-  String token;
-
-  _getToken() async {
+  _getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     token = prefs.getString('login');
+    return responseData = await UserInfoService.getUserInfo(token);
   }
 
   List<Widget> tabPages = [
@@ -53,32 +56,43 @@ class _MyTabbedPageState extends State<CustomBottomTabNavigator> {
   }
 
   void onTabTapped(int index) {
-    this._pageController.animateToPage(index, duration: Duration(milliseconds: 200), curve: Curves.easeIn);
+    this._pageController.jumpToPage(index);
   }
 
   @override
   Widget build(BuildContext context) {
-    _getToken();
-    return Scaffold(
-      drawer: CustomDrawer(token: token,),
-      appBar: CustomAppBar(allDestinations[_pageIndex].title, true),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _pageIndex,
-        onTap: onTabTapped,
-        items: allDestinations.map((Destination destination) {
-          return BottomNavigationBarItem(
-              icon: Icon(destination.icon),
-              backgroundColor: destination.color,
-              title: Text(destination.title));
-        }).toList(),
-      ),
-      body: SafeArea(
-        child: PageView(
-          children: tabPages,
-          onPageChanged: onPageChanged,
-          controller: _pageController,
-        ),
-      ),
+    return FutureBuilder(
+      future: _getData(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Scaffold(
+            drawer: CustomDrawer(
+                token: token,
+                userData:
+                    UserModel(responseData.data.name, responseData.data.login)),
+            appBar: CustomAppBar(allDestinations[_pageIndex].title, true),
+            bottomNavigationBar: BottomNavigationBar(
+              currentIndex: _pageIndex,
+              onTap: onTabTapped,
+              items: allDestinations.map((Destination destination) {
+                return BottomNavigationBarItem(
+                    icon: Icon(destination.icon),
+                    backgroundColor: destination.color,
+                    title: Text(destination.title));
+              }).toList(),
+            ),
+            body: SafeArea(
+              child: PageView(
+                children: tabPages,
+                onPageChanged: onPageChanged,
+                controller: _pageController,
+              ),
+            ),
+          );
+        }
+        if (snapshot.hasError) {}
+        return new Center(child: new CircularProgressIndicator());
+      },
     );
   }
 }
