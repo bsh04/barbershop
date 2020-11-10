@@ -34,9 +34,7 @@ class _NewsState extends State<NewsScreen> {
 
     return _newsList = responseDataNews.data.map<Widget>((item) {
       return new NewsAndStocksItem(
-          image: item.imageUrl,
-          title: item.title,
-          desc: item.description);
+          image: item.imageUrl, title: item.title, desc: item.description);
     }).toList();
   }
 
@@ -52,29 +50,29 @@ class _NewsState extends State<NewsScreen> {
                   userData: UserModel(
                       responseDataUser.data.name, responseDataUser.data.login)),
               appBar: CustomAppBar('Новости', true),
-              body: Column(
-                children: [
-                SizedBox(
-                height: 30,
-              ),
-                Text('СПИСОК НОВОСТЕЙ',
-                    style: TextStyle(
-                        color: Colors.blue,
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22)),
-                SizedBox(
-                  height: 20,
-                ),
-              Container(
-                  child: ListView(
-                    physics: ScrollPhysics(),
-                    controller: _controller,
-                    shrinkWrap: true,
-                    children: _newsList,
-                  )),
-                ]
-              )
+              body: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Column(children: [
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Text('СПИСОК НОВОСТЕЙ',
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22)),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                        child: ListView(
+                      physics: ScrollPhysics(),
+                      controller: _controller,
+                      shrinkWrap: true,
+                      children: _newsList,
+                    )),
+                  ])),
             );
           }
           if (snapshot.hasError) {}

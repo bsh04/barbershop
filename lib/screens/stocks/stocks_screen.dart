@@ -48,27 +48,29 @@ class _StocksState extends State<StocksScreen> {
                     userData: UserModel(responseDataUser.data.name,
                         responseDataUser.data.login)),
                 appBar: CustomAppBar('Акции', true),
-                body: Column(children: [
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Text('СПИСОК АКЦИЙ',
-                      style: TextStyle(
-                          color: Colors.blue,
-                          fontStyle: FontStyle.italic,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22)),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                      child: ListView(
-                    physics: ScrollPhysics(),
-                    controller: _controller,
-                    shrinkWrap: true,
-                    children: _stocksList,
-                  )),
-                ]));
+                body: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(children: [
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Text('СПИСОК АКЦИЙ',
+                          style: TextStyle(
+                              color: Colors.blue,
+                              fontStyle: FontStyle.italic,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22)),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                          child: ListView(
+                        physics: ScrollPhysics(),
+                        controller: _controller,
+                        shrinkWrap: true,
+                        children: _stocksList,
+                      )),
+                    ])));
           }
           if (snapshot.hasError) {}
           return new Center(child: new CircularProgressIndicator());
