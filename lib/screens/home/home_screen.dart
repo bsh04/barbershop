@@ -61,6 +61,14 @@ class _HomeState extends State<HomeScreen> {
     }).toList();
   }
 
+  _ratingCalc(double rating) {
+    if (rating == 5) {
+      return 15 + (17 * rating) + (16 * rating.round().ceil()) - 10;
+    } else {
+      return 15 + (17 * rating) + (16 * rating.round().ceil());
+    }
+  }
+
   Future<bool> _onBackPressed() {
     return showDialog(
           context: context,
@@ -154,41 +162,78 @@ class _HomeState extends State<HomeScreen> {
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 return CarouselSlider(
-                                  options: CarouselOptions(height: 430.0),
+                                  options: CarouselOptions(height: 480.0),
                                   items: _masters.map((i) {
                                     return Builder(
                                       builder: (BuildContext context) {
                                         return Container(
-                                            width: MediaQuery.of(context).size.width,
-                                            margin:
-                                            EdgeInsets.symmetric(horizontal: 5.0),
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            margin: EdgeInsets.symmetric(
+                                                horizontal: 5.0),
                                             child: Column(children: [
                                               Container(
-                                                width:
-                                                MediaQuery.of(context).size.width,
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
                                                 color: Colors.blue,
                                                 child: Text(
                                                   '${i.name}',
                                                   style: TextStyle(
                                                       fontSize: 30.0,
                                                       color: Colors.white,
-                                                      fontWeight: FontWeight.bold),
+                                                      fontWeight:
+                                                          FontWeight.bold),
                                                   textAlign: TextAlign.center,
                                                 ),
                                               ),
                                               Container(
                                                 height: 390,
-                                                width:
-                                                MediaQuery.of(context).size.width,
-                                                child: FadeInImage.memoryNetwork(
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                child:
+                                                    FadeInImage.memoryNetwork(
                                                   width: MediaQuery.of(context)
                                                       .size
                                                       .width,
                                                   fit: BoxFit.fill,
-                                                  placeholder: kTransparentImage,
+                                                  placeholder:
+                                                      kTransparentImage,
                                                   image: '${i.url}',
                                                 ),
-                                              )
+                                              ),
+                                              Container(
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  height: 50,
+                                                  color: Colors.blue,
+                                                  child: Center(
+                                                    child: Container(
+                                                      child: Stack(
+                                                        children: [
+                                                          Container(
+                                                            height: 35,
+                                                            width: _ratingCalc(i.rating),
+                                                            color: Colors.red,
+                                                          ),
+                                                          Container(
+                                                            width: 180,
+                                                            height: 40,
+                                                            decoration:
+                                                            new BoxDecoration(
+                                                              image: new DecorationImage(
+                                                                  image: new AssetImage(
+                                                                      'assets/master/rating.png'),
+                                                                  fit: BoxFit.fill),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      )
+                                                    ),
+                                                  )),
                                             ]));
                                       },
                                     );
@@ -196,7 +241,8 @@ class _HomeState extends State<HomeScreen> {
                                 );
                               }
                               if (snapshot.hasError) {}
-                              return new Center(child: new CircularProgressIndicator());
+                              return new Center(
+                                  child: new CircularProgressIndicator());
                             },
                           ),
                           SizedBox(
