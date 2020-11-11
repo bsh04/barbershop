@@ -12,14 +12,14 @@ class ProductsService {
         var product = productSnapshot.data();
         try {
           double price = (product["price"]).toDouble();
-          productsList.add(new ProductModel(product["id"], product["name"], product["description"], price, product["url"]));
+          productsList.add(new ProductModel(productSnapshot.id, product["name"], product["description"], price, product["url"]));
         } catch (e) {
           print("Failed to get product $productSnapshot");
         }
       });
       if (productsList.isEmpty)
         return new ResponseModel(400, 'Список товаров пуст.', null);
-      return ResponseModel(201, 'Список мастеров получен.', productsList);
+      return ResponseModel(201, 'Список товаров получен.', productsList);
     }
     return new ResponseModel(400, 'Список товаров пуст.', null);
   }

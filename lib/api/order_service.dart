@@ -9,8 +9,14 @@ class OrderService {
     var userInfo = await UserInfoService.getUserInfo(userLogin);
 
     if (productSnapshot.exists && userInfo != null && userInfo.data != null) {
-      double price = productSnapshot.data()['price'];
-      double balance = userInfo.data.balance;
+      double price;
+      double balance;
+      try {
+        price = productSnapshot.data()['price'].toDouble();
+        balance = userInfo.data.balance.toDouble();
+      } catch (e) {
+        print(e);
+      }
 
       if (balance < price) {
         return new ResponseModel(400, 'Недостаточно средств.', null);

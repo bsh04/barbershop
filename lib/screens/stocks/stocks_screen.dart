@@ -6,6 +6,8 @@ import 'package:firebaseauthproject/widgets/news-stocks-item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/users_model.dart';
+
 class StocksScreen extends StatefulWidget {
   final String token;
 
@@ -46,7 +48,7 @@ class _StocksState extends State<StocksScreen> {
                 drawer: CustomDrawer(
                     token: token,
                     userData: UserModel(responseDataUser.data.name,
-                        responseDataUser.data.login)),
+                        responseDataUser.data.login, responseDataUser.data.balance)),
                 appBar: CustomAppBar('Акции', true),
                 body: SingleChildScrollView(
                     scrollDirection: Axis.vertical,

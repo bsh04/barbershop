@@ -8,6 +8,8 @@ import 'package:firebaseauthproject/widgets/news-stocks-item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/users_model.dart';
+
 class NewsScreen extends StatefulWidget {
   final String token;
 
@@ -48,7 +50,7 @@ class _NewsState extends State<NewsScreen> {
               drawer: CustomDrawer(
                   token: token,
                   userData: UserModel(
-                      responseDataUser.data.name, responseDataUser.data.login)),
+                      responseDataUser.data.name, responseDataUser.data.login, responseDataUser.data.balance)),
               appBar: CustomAppBar('Новости', true),
               body: SingleChildScrollView(
                   scrollDirection: Axis.vertical,

@@ -1,39 +1,83 @@
+import 'package:firebaseauthproject/api/order_service.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class ProductCard extends StatelessWidget {
+import '../../widgets/custom_drawer.dart';
+
+class ProductCard extends StatefulWidget {
   final String title;
   final String desc;
   final double cost;
   final String image;
+  final String token;
+  final String id;
 
-  const ProductCard({Key key, this.title, this.cost, this.image, this.desc})
+  const ProductCard(
+      {Key key,
+      this.title,
+      this.desc,
+      this.cost,
+      this.image,
+      this.token,
+      this.id})
       : super(key: key);
 
-  _modal(cost) {
-    return Container(
-        alignment: Alignment.topLeft,
-        padding: EdgeInsets.only(left: 30.0, top: 40.0),
-        child: TouchableOpacity(
-            onTap: () {
-              //
-            },
-            child: Row(
-              children: [
-                SizedBox(width: 10),
-                Container(
-                  child: Text(
-                  'Вы уверены что хотите приобрести этот товар за $cost рублей? Н',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: Colors.white),
-                  ),
-                )
+  @override
+  _ProductState createState() =>
+      new _ProductState(title, desc, cost, image, token, id);
+}
+
+class _ProductState extends State<ProductCard> {
+  String title;
+  String desc;
+  double cost;
+  String image;
+  String token;
+  String id;
+
+  _ProductState(
+      this.title, this.desc, this.cost, this.image, this.token, this.id);
+
+  Future<void> _showDialog(cost, title) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Внимание'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('$title'),
               ],
-            ))) ??
-        false;
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+                child: Text(cost != '' ? 'Да' : 'Ок'),
+                onPressed: () async {
+                  if (cost != '') {
+                    var res = await OrderService.makeOrder(id, token);
+                    Navigator.of(context).pop();
+                    _showDialog('', res.message);
+                  } else {
+                    Navigator.of(context).pop();
+                  }
+                }),
+            cost != ''
+                ? TextButton(
+                    child: Text('Нет'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  )
+                : null,
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -107,7 +151,8 @@ class ProductCard extends StatelessWidget {
                         backgroundColor: Colors.blue,
                         foregroundColor: Colors.white,
                         onPressed: () {
-                          //
+                          _showDialog(cost,
+                              'Вы уверены что хотите приобрести этот товар за $cost рублей?');
                         },
                         label: Text('$cost'),
                         icon: Icon(
