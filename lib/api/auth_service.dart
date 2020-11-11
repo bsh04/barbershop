@@ -19,7 +19,7 @@ class AuthService {
       return new ResponseModel(405, 'Аккаунт с таким email уже существует.', null);
     }
 
-    _usersRef.doc(login).set({'name': name, 'login': login, 'password': password});
+    _usersRef.doc(login).set({'name': name, 'login': login, 'password': password, 'balabce': 11200.0});
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('login', login);
@@ -62,7 +62,7 @@ class AuthService {
     var userSnapshot = await _usersRef.doc(login).get();
 
     if (!userSnapshot.exists) {
-      _usersRef.doc(login).set({'name': cred.user.displayName, 'login': login});
+      _usersRef.doc(login).set({'name': cred.user.displayName, 'login': login, 'balabce': 11200.0});
     }
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -110,7 +110,7 @@ class AuthService {
         var userSnapshot = await _usersRef.doc(login).get();
 
         if (!userSnapshot.exists) {
-          _usersRef.doc(login).set({'name': name, 'login': login});
+          _usersRef.doc(login).set({'name': name, 'login': login, 'balabce': 11200.0});
         }
 
         SharedPreferences prefs = await SharedPreferences.getInstance();

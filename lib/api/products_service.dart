@@ -12,7 +12,7 @@ class ProductsService {
         var product = productSnapshot.data();
         try {
           double price = (product["price"]).toDouble();
-          productsList.add(new ProductModel(product["name"], product["description"], price, product["url"]));
+          productsList.add(new ProductModel(product["id"], product["name"], product["description"], price, product["url"]));
         } catch (e) {
           print("Failed to get product $productSnapshot");
         }
