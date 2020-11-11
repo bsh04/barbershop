@@ -10,6 +10,8 @@ class UserInfoService {
       var name = userSnapshot.data()['name'];
       var userModel = new UserModel(name, login);
       return ResponseModel(201, 'Пользователь $login.', userModel);
+    } else {
+      print('123');
     }
     return new ResponseModel(400, 'Пользователь не найден.', null);
   }

@@ -15,22 +15,34 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'api/userInfo_service.dart';
 import 'screens/news/news_screen.dart';
 import 'screens/stocks/stocks_screen.dart';
 
 void main() async {
+
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     systemNavigationBarColor: Colors.blue,
     statusBarColor: Colors.indigo,
   ));
   WidgetsFlutterBinding.ensureInitialized();
 
+  await Firebase.initializeApp();
+
   String token;
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  token = prefs.getString('login');
 
-  await Firebase.initializeApp();
+  var login = prefs.getString('login');
+  var response = await UserInfoService.getUserInfo(login);
+
+  if (login != null && response.data != null) {
+    token = prefs.getString('login');
+  } else {
+    print('123');
+    token = null;
+  }
+
   Bloc.observer = SimpleBlocObserver();
   final UserRepository userRepository = UserRepository();
   runApp(MyApp(userRepository: userRepository, token: token));

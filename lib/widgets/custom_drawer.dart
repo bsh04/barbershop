@@ -127,8 +127,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
           gradient: LinearGradient(
             begin: Alignment.bottomCenter,
             end: FractionalOffset.topCenter,
-            colors: [Colors.lightBlueAccent, Colors.blueAccent],
-            stops: [0, 1],
+            // colors: [Colors.lightBlueAccent, Colors.blueAccent],
+            // stops: [0, 1],
           ),
         ),
         child: Center(
