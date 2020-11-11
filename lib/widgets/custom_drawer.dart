@@ -119,7 +119,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    print(userData);
     return Drawer(
       child: Scaffold(
           body: Container(
@@ -127,8 +126,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
           gradient: LinearGradient(
             begin: Alignment.bottomCenter,
             end: FractionalOffset.topCenter,
-            // colors: [Colors.lightBlueAccent, Colors.blueAccent],
-            // stops: [0, 1],
+            colors: [Colors.lightBlueAccent, Colors.blueAccent],
+            stops: [0, 1],
           ),
         ),
         child: Center(
@@ -142,6 +141,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     ),
                     _staticItem(userData.name, Icons.assignment_ind),
                     _staticItem(userData.login, Icons.person),
+                    _staticItem(userData.login, Icons.monetization_on),
                     _touchItem('Главная', Icons.home, '/home', true),
                     _touchItem('Новости', Icons.fiber_new_sharp, '/news', false),
                     _touchItem('Акции', Icons.add_shopping_cart, '/stocks', false),

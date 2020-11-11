@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:touchable_opacity/touchable_opacity.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class ProductCard extends StatelessWidget {
@@ -9,6 +10,31 @@ class ProductCard extends StatelessWidget {
 
   const ProductCard({Key key, this.title, this.cost, this.image, this.desc})
       : super(key: key);
+
+  _modal(cost) {
+    return Container(
+        alignment: Alignment.topLeft,
+        padding: EdgeInsets.only(left: 30.0, top: 40.0),
+        child: TouchableOpacity(
+            onTap: () {
+              //
+            },
+            child: Row(
+              children: [
+                SizedBox(width: 10),
+                Container(
+                  child: Text(
+                  'Вы уверены что хотите приобрести этот товар за $cost рублей? Н',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Colors.white),
+                  ),
+                )
+              ],
+            ))) ??
+        false;
+  }
 
   @override
   Widget build(BuildContext context) {
