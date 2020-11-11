@@ -58,6 +58,7 @@ class _RegisterFormState extends State<RegisterForm> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Form(
