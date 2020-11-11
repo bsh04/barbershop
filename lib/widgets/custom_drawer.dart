@@ -3,12 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
-class UserModel {
-  String name;
-  String login;
-
-  UserModel(this.name, this.login);
-}
+import '../models/users_model.dart';
 
 class CustomDrawer extends StatefulWidget {
   final String token;
@@ -141,7 +136,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     ),
                     _staticItem(userData.name, Icons.assignment_ind),
                     _staticItem(userData.login, Icons.person),
-                    _staticItem(userData.login, Icons.monetization_on),
+                    _staticItem(userData.balance, Icons.monetization_on),
                     _touchItem('Главная', Icons.home, '/home', true),
                     _touchItem('Новости', Icons.fiber_new_sharp, '/news', false),
                     _touchItem('Акции', Icons.add_shopping_cart, '/stocks', false),

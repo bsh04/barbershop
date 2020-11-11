@@ -7,8 +7,13 @@ class UserInfoService {
   static Future<ResponseModel<UserModel>> getUserInfo(String login) async {
     var userSnapshot = await FirebaseFirestore.instance.collection("users").doc(login).get();
     if (userSnapshot.exists) {
+      double balance;
+      try {
+        balance = userSnapshot.data()['balance'].toDouble();
+      } catch (e) {
+        print(e);
+      }
       var name = userSnapshot.data()['name'];
-      var balance = userSnapshot.data()['balance'];
       var userModel = new UserModel(name, login, balance);
       return ResponseModel(201, 'Пользователь $login.', userModel);
     } else {
