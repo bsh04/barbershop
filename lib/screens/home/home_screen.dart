@@ -212,27 +212,32 @@ class _HomeState extends State<HomeScreen> {
                                                   color: Colors.blue,
                                                   child: Center(
                                                     child: Container(
-                                                      child: Stack(
-                                                        children: [
-                                                          Container(
+                                                        child: Stack(
+                                                      children: [
+                                                        Positioned(
+                                                          child: Container(
                                                             height: 35,
-                                                            width: _ratingCalc(i.rating),
-                                                            color: Colors.red,
+                                                            width: _ratingCalc(
+                                                                i.rating),
+                                                            color: Colors
+                                                                .amberAccent,
                                                           ),
-                                                          Container(
-                                                            width: 180,
-                                                            height: 40,
-                                                            decoration:
-                                                            new BoxDecoration(
-                                                              image: new DecorationImage(
-                                                                  image: new AssetImage(
-                                                                      'assets/master/rating.png'),
-                                                                  fit: BoxFit.fill),
-                                                            ),
+                                                          top: 5,
+                                                        ),
+                                                        Container(
+                                                          width: 180,
+                                                          height: 40,
+                                                          decoration:
+                                                              new BoxDecoration(
+                                                            image: new DecorationImage(
+                                                                image: new AssetImage(
+                                                                    'assets/master/rating.png'),
+                                                                fit: BoxFit
+                                                                    .fill),
                                                           ),
-                                                        ],
-                                                      )
-                                                    ),
+                                                        ),
+                                                      ],
+                                                    )),
                                                   )),
                                             ]));
                                       },
