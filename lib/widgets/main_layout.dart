@@ -28,8 +28,7 @@ class _MyTabbedPageState extends State<CustomBottomTabNavigator> {
   _getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     token = prefs.getString('login');
-    responseData = await UserInfoService.getUserInfo(token);
-    return responseData;
+    return responseData = await UserInfoService.getUserInfo(token);
   }
 
   List<Widget> tabPages = [
@@ -66,7 +65,6 @@ class _MyTabbedPageState extends State<CustomBottomTabNavigator> {
     return FutureBuilder(
       future: _getData(),
       builder: (context, snapshot) {
-        print(responseData.data.balance);
         if (snapshot.hasData) {
           return Scaffold(
             drawer: CustomDrawer(
